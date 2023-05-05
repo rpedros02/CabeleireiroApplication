@@ -4,12 +4,9 @@ import com.company.dto.ClienteDTO;
 import com.company.dto.ClienteListDTO;
 import com.company.dto.Mapper;
 import com.company.models.Cabeleireiro;
-import com.company.models.Cliente;
 import com.company.models.ClienteContainer;
 import com.company.repository.FilesOperation;
 
-import java.util.ArrayList;
-import java.util.concurrent.CancellationException;
 
 public class ClienteService {
     public static ClienteListDTO getClientes() {

@@ -1,11 +1,7 @@
 package com.company.controller;
 
-import com.company.dto.ClienteDTO;
 import com.company.dto.ErrorDto;
 import com.company.dto.FuncionarioDTO;
-import com.company.dto.Mapper;
-import com.company.models.Funcionario;
-import com.company.service.ClienteService;
 import com.company.service.FuncionarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

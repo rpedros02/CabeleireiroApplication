@@ -41,11 +41,11 @@ public class Mapper {
     }
 
     public static CabeleireiroDTO cabeleireiro2CabeleireiroDTO(Cabeleireiro arg) {
-        return new CabeleireiroDTO(arg.getNome(), arg.getMorada(), arg.getSaldo(), arg.getNumCadeirasLavagem(), arg.getNumCadeirasBrushing(),horario2HorarioDTO(arg.getHorario()));
+        return new CabeleireiroDTO(arg.getNome(), arg.getMorada(), arg.getSaldo(), arg.getNumCadeirasLavagem(), arg.getNumCadeirasBrushing(), horario2HorarioDTO(arg.getHorario()));
     }
 
     public static Cabeleireiro cabeleireiroDTO2Cabeleireiro(CabeleireiroDTO arg) {
-        return new Cabeleireiro(arg.getNome(), arg.getMorada(), arg.getSaldo(), arg.getNumCadeirasLavagem(), arg.getNumCadeirasBrushing(),horarioDTO2Horario(arg.getHorario()));
+        return new Cabeleireiro(arg.getNome(), arg.getMorada(), arg.getSaldo(), arg.getNumCadeirasLavagem(), arg.getNumCadeirasBrushing(), horarioDTO2Horario(arg.getHorario()));
     }
 
     public static HorarioServicoDTO horarioServico2HorarioServicoDTO(HorarioServico arg) {
@@ -57,7 +57,7 @@ public class Mapper {
     }
 
     public static ServicoDTO servico2ServicoDTO(Servico arg) {
-        return new ServicoDTO(arg.getNumPedido(),arg.getNumCliente(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()));
+        return new ServicoDTO(arg.getNumPedido(), arg.getNumCliente(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()));
     }
 
     public static Servico servicodto2Servico(ServicoDTO arg) {
@@ -89,27 +89,27 @@ public class Mapper {
     }
 
     public static ClienteDTO cliente2ClienteDTO(Cliente arg) {
-        return new ClienteDTO(arg.getNumeroCliente(), arg.getNome(),Mapper.date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
+        return new ClienteDTO(arg.getNumeroCliente(), arg.getNome(), Mapper.date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
     }
 
     public static Cliente clienteDTO2Cliente(ClienteDTO arg) {
-        return new Cliente(arg.getNome(),Mapper.dateDTO2Date(arg.getDataNascimento()),arg.getNif(), arg.getGenero(),arg.getNumeroCliente());
+        return new Cliente(arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()), arg.getNif(), arg.getGenero(), arg.getNumeroCliente());
     }
 
-    public static FuncionarioDTO funcionario2FuncionarioDTO (Funcionario arg){
+    public static FuncionarioDTO funcionario2FuncionarioDTO(Funcionario arg) {
         return new FuncionarioDTO(arg.getNumFuncionario(), arg.getNome(), date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
     }
 
-    public static Funcionario funcionarioDTO2Funcionario(FuncionarioDTO arg){
-        return new Funcionario(arg.getNome(),Mapper.dateDTO2Date(arg.getDataNascimento()),arg.getNif(),string2Genero(arg.getGenero()), arg.getNumeroFuncionario());
+    public static Funcionario funcionarioDTO2Funcionario(FuncionarioDTO arg) {
+        return new Funcionario(arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()), arg.getNif(), string2Genero(arg.getGenero()), arg.getNumeroFuncionario());
     }
 
-    public static Genero string2Genero(String arg){
-        if(arg.equalsIgnoreCase("masculino")){
+    public static Genero string2Genero(String arg) {
+        if (arg.equalsIgnoreCase("masculino")) {
             return Genero.MASCULINO;
-        }else if(arg.equalsIgnoreCase("feminino")){
+        } else if (arg.equalsIgnoreCase("feminino")) {
             return Genero.FEMININO;
-        }else {
+        } else {
             return Genero.NAOBINARIO;
         }
     }
@@ -145,4 +145,13 @@ public class Mapper {
         }
         return new FuncionarioContainer(temp);
     }
+
+    public static ProdutoListDTO produtoContainer2ProdutoListDTO(ProdutoContainer arg) {
+        ArrayList<ProdutoDTO> temp = new ArrayList<>();
+        for (Produto p : arg.getStock()) {
+            temp.add(produto2ProdutoDTO(p));
+        }
+        return new ProdutoListDTO(temp);
+    }
+
 }

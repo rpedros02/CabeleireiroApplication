@@ -2,7 +2,6 @@ package com.company.service;
 
 import com.company.dto.CabeleireiroDTO;
 import com.company.dto.Mapper;
-import com.company.dto.ServicoDTO;
 import com.company.models.Cabeleireiro;
 import com.company.repository.FilesOperation;
 

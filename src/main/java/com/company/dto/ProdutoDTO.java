@@ -20,6 +20,12 @@ public class ProdutoDTO {
         this.preco = preco;
     }
 
+    public ProdutoDTO(){
+        this.id = getId();
+        this.nome = getNome();
+        this.preco = getPreco();
+    }
+
     public int getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package com.company.models;
 
 import com.company.exceptions.ElementoNaoExisteException;
+import com.company.service.ProdutoService;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,10 +17,11 @@ public class ProdutoContainer implements Serializable {
         this.stock = new ArrayList<>();
     }
 
-    public void addProduto(Produto produto){
+    public void addProduto(Produto produto) {
         stock.add(produto);
     }
-    public void removeProduto(int id){
+
+    public void removeProduto(int id) {
         stock.removeIf(produto -> produto.getId() == id);
     }
 
@@ -47,5 +49,24 @@ public class ProdutoContainer implements Serializable {
             }
         }
         throw new ElementoNaoExisteException("Protudo " + name + " não existe");
+    }
+
+    public void update(int id, Produto arg) {
+        Produto produto = getProdutoByID(id);
+        if (produto != null) {
+            produto.setNome(arg.getNome());
+            produto.setPreco(arg.getPreco());
+        } else {
+            throw new ElementoNaoExisteException("Servico " + id + " não existe.");
+        }
+    }
+
+    public void remove(int number) {
+        Produto produto = getProdutoByID(number);
+        if (produto != null) {
+            this.stock.remove(produto);
+        } else {
+            throw new ElementoNaoExisteException("Erro - Elemento não existe.");
+        }
     }
 }

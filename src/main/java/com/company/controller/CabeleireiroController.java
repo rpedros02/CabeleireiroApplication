@@ -1,11 +1,8 @@
 package com.company.controller;
 
 import com.company.dto.CabeleireiroDTO;
-import com.company.dto.ClienteDTO;
 import com.company.dto.ErrorDto;
-import com.company.models.Cabeleireiro;
 import com.company.service.CabeleireiroService;
-import com.company.service.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -4,9 +4,6 @@ import com.company.dto.*;
 import com.company.models.*;
 import com.company.repository.FilesOperation;
 
-import java.util.ArrayList;
-import java.util.concurrent.CancellationException;
-
 public class ServicoService {
     public static ServicoListDTO getServicos() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
