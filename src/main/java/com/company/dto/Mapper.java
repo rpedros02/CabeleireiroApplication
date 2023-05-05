@@ -57,11 +57,11 @@ public class Mapper {
     }
 
     public static ServicoDTO servico2ServicoDTO(Servico arg) {
-        return new ServicoDTO(arg.getNumPedido(), arg.getNumCliente(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()));
+        return new ServicoDTO(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()));
     }
 
     public static Servico servicodto2Servico(ServicoDTO arg) {
-        return new Servico(arg.getNumPedido(), arg.getNumCliente(), dateDTO2Date(arg.getDataServico()), horarioServicoDTO2HorarioServico(arg.getHorarioServico()));
+        return new Servico(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), dateDTO2Date(arg.getDataServico()), horarioServicoDTO2HorarioServico(arg.getHorarioServico()));
     }
 
     public static ServicoListDTO servicoList2ServicoListDTO(ServicosContainer arg) {

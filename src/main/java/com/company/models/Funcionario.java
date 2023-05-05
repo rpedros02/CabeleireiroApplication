@@ -29,10 +29,12 @@ public class Funcionario extends Pessoa implements Serializable {
             throw new NumeroInvalidoException("Número : " + numFuncionario + " Inválido.");
         }
     }
-    public Funcionario(long numFuncionario,String nome){
+
+    public Funcionario(long numFuncionario, String nome) {
         super(nome);
         this.numFuncionario = numFuncionario;
     }
+
 
     /**
      * Retorna o número do Funcionário

@@ -1,10 +1,11 @@
 package com.company.models;
 
-import com.company.enums.Genero;
 import com.company.exceptions.ElementoNaoExisteException;
+import com.company.repository.FilesOperation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ServicosContainer implements Serializable {
 
@@ -34,7 +35,7 @@ public class ServicosContainer implements Serializable {
     }
 
     public void add(Servico arg) {
-        this.servicos.add(new Servico(getNewNumber(), arg.getNumCliente(), arg.getDataServico(),arg.getHorarioServico()));
+        this.servicos.add(new Servico(getNewNumber(), arg.getNumCliente(), arg.getNumFuncionario(), arg.getDataServico(), arg.getHorarioServico()));
     }
 
     public Servico search(int id) {
