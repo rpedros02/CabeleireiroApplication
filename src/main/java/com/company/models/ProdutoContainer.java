@@ -17,12 +17,18 @@ public class ProdutoContainer implements Serializable {
         this.stock = new ArrayList<>();
     }
 
-    public void addProduto(Produto produto) {
-        stock.add(produto);
+    private int getNewNumber() {
+        int num = 0;
+        for (int i = stock.size() - 1; i >= 0; i--) {
+            if (stock.get(i).getId() > num) {
+                num = stock.get(i).getId();
+            }
+        }
+        return (num + 1);
     }
 
-    public void removeProduto(int id) {
-        stock.removeIf(produto -> produto.getId() == id);
+    public void addProduto(Produto produto) {
+        stock.add(new Produto(getNewNumber(), produto.getNome(), produto.getPreco()));
     }
 
     public ArrayList<Produto> getStock() {
