@@ -19,6 +19,14 @@ public class ServicoController {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
+    @GetMapping(value = "/servicosbycliente/{number}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getServicosByCliente(@PathVariable("number") int id) {
+        try {
+            return new ResponseEntity<>(ServicoService.getServicosPorCliente(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
 
     @GetMapping(value = "/servicos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Object> getServicoInfo(@PathVariable("number") int id) {

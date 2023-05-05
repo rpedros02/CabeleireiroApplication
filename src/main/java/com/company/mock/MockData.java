@@ -2,6 +2,7 @@ package com.company.mock;
 
 import com.company.enums.*;
 import com.company.models.*;
+import com.company.repository.FilesOperation;
 
 import java.time.Year;
 import java.util.concurrent.ThreadLocalRandom;
@@ -49,7 +50,7 @@ public class MockData {
     private Date genDate() {
         int day = genRandomInt(1, 27);
         int month = genRandomInt(1, 12);
-        int year = genRandomInt(1970, Year.now().getValue());
+        int year = genRandomInt(1970, 2005);
         return new Date(day, month, year);
     }
 
@@ -77,13 +78,17 @@ public class MockData {
 
     private void insertServicos(ServicosContainer container) {
         for (int i = 0; i <= NUM_INICIAL_SERVICOS; i++) {
-            container.add(new Servico(i + 1, (long) genRandomInt(1, 20), numerosFuncionarios[genRandomInt(0,numerosFuncionarios.length)], genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false));
+            ProdutoContainer container1 = new ProdutoContainer();
+            for (int j = 0; j < genRandomInt(1, 11); j++) {
+                insertProdutos(container1);
+            }
+            container.add(new Servico(i + 1, (long) genRandomInt(1, 20), numerosFuncionarios[genRandomInt(0, numerosFuncionarios.length)], genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false, container1));
         }
     }
 
     private void insertProdutos(ProdutoContainer container) {
         for (int i = 0; i <= NUM_INICIAL_PRODUTOS; i++) {
-            container.addProduto(new Produto(i + 1, genNameProduto(), round(genRandomDouble(0.0, 49.99),2)));
+            container.addProduto(new Produto(i + 1, genNameProduto(), round(genRandomDouble(0.0, 49.99), 2)));
         }
     }
 

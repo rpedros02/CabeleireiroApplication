@@ -76,6 +76,7 @@ public class EstatisticaService {
         for (Cliente cliente : clientes) {
             if (clientesMaisNovos.size() < n) {
                 clientesMaisNovos.add(cliente);
+                continue;
             }
             for (int i = 0; i < clientesMaisNovos.size(); i++) {
                 if (cliente.getDataNascimento().isLater(clientesMaisNovos.get(i).getDataNascimento())) {
@@ -139,4 +140,28 @@ public class EstatisticaService {
         return Mapper.funcionarioContainer2FuncionarioListDTO(result);
     }
 
+    public static int getNServicosPorCliente(long id) {
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        int count = 0;
+        for (Servico s : cabeleireiro.getServicos().getServicos()) {
+            if (s.getNumCliente() == id) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static ClienteDTO getClienteMaisServicos() {
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        int max = 0;
+        long idmax = 0;
+        for (Cliente c : cabeleireiro.getClientes().getAll()) {
+            int count = getNServicosPorCliente(c.getNumeroCliente());
+            if (count > max) {
+                max = count;
+                idmax = c.getNumeroCliente();
+            }
+        }
+        return Mapper.cliente2ClienteDTO(cabeleireiro.getClientes().search((int) idmax));
+    }
 }
