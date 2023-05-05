@@ -59,8 +59,6 @@ public class FuncionarioContainer implements Serializable {
         return lista;
     }
 
-
-    //FIM ESTATISTICA
     public Funcionario search(int id) {
         Funcionario funcionario;
         for (Funcionario value : this.funcionarios) {

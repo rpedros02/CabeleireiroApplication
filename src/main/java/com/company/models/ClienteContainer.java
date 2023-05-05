@@ -73,4 +73,54 @@ public class ClienteContainer implements Serializable {
             throw new ElementoNaoExisteException("Erro.");
         }
     }
+    //INICIO ESTATISTICA
+    public ArrayList<Pessoa> getNClientesMaisVelhos(int n) {
+        boolean flag;
+        ArrayList<Pessoa> lista = new ArrayList<>();
+        if (n <= 0) {
+            return lista;
+        }
+        for (Pessoa p : clientes) {
+            flag = false;
+            for (int i = 0; i < lista.size(); i++) {
+                if (p.getDataNascimento().isEarlier(lista.get(i).getDataNascimento())) {
+                    lista.add(i, p);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                lista.add(p);
+            }
+        }
+        if (lista.size() > n) {
+            lista.subList(n, lista.size()).clear();
+        }
+        return lista;
+    }
+    public ArrayList<Pessoa> getNClientesMaisNovos(int n) {
+        boolean flag;
+        ArrayList<Pessoa> lista = new ArrayList<>();
+        if (n <= 0) {
+            return lista;
+        }
+        for (Pessoa p : clientes) {
+            flag = false;
+            for (int i = 0; i < lista.size(); i++) {
+                if (!p.getDataNascimento().isEarlier(lista.get(i).getDataNascimento())) {
+                    lista.add(i, p);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                lista.add(p);
+            }
+        }
+        if (lista.size() > n) {
+            lista.subList(n, lista.size()).clear();
+        }
+        return lista;
+    }
+    // FIM ESTATISTICA
 }

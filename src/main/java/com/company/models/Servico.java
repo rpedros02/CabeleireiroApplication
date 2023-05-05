@@ -9,6 +9,7 @@ public class Servico implements Serializable {
 
     private long numPedido;
     private long numCliente;
+    private long numFuncionario;
     private Date dataServico;
     /**
      * Horário a que o Serviço foi efetuado. Ver {@link HorarioServico}.
@@ -20,19 +21,22 @@ public class Servico implements Serializable {
      * Construtor do Serviço.
      *
      * @param numPedido      → Número do Pedido - Int
+     * @param numFuncionario
      * @param dataServico    → Data do Serviço - Date
      * @param horarioServico → Hora e Minuto do Serviço - HorarioServico
      */
-    public Servico(long numPedido,long numCliente, Date dataServico, HorarioServico horarioServico) {
+    public Servico(long numPedido, long numCliente, long numFuncionario, Date dataServico, HorarioServico horarioServico) {
         this.numPedido = numPedido;
         this.numCliente = numCliente;
+        this.numFuncionario = numFuncionario;
         this.dataServico = dataServico;
         this.horarioServico = horarioServico;
         aDecorrer = true;
     }
-    public Servico(long numPedido,long numcliente, Date dataServico, HorarioServico horarioServico,boolean aDecorrer) {
+    public Servico(long numPedido, long numcliente, long numFuncionario, Date dataServico, HorarioServico horarioServico, boolean aDecorrer) {
         this.numPedido = numPedido;
         this.numCliente = numcliente;
+        this.numFuncionario = numFuncionario;
         this.dataServico = dataServico;
         this.horarioServico = horarioServico;
         this.aDecorrer = aDecorrer;
@@ -75,5 +79,13 @@ public class Servico implements Serializable {
     }
     public void setNumCliente(long numCliente) {
         this.numCliente = numCliente;
+    }
+
+    public long getNumFuncionario() {
+        return numFuncionario;
+    }
+
+    public void setNumFuncionario(long numFuncionario) {
+        this.numFuncionario = numFuncionario;
     }
 }

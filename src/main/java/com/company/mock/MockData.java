@@ -1,11 +1,9 @@
 package com.company.mock;
 
-import com.company.CabeleireiroApplication;
 import com.company.enums.*;
 import com.company.models.*;
 
 import java.time.Year;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MockData {
@@ -79,7 +77,7 @@ public class MockData {
 
     private void insertServicos(ServicosContainer container) {
         for (int i = 0; i <= NUM_INICIAL_SERVICOS; i++) {
-            container.add(new Servico(i + 1, (long) genRandomInt(1, 20), genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false));
+            container.add(new Servico(i + 1, (long) genRandomInt(1, 20), numerosFuncionarios[genRandomInt(0,numerosFuncionarios.length)], genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false));
         }
     }
 
