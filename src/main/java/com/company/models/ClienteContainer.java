@@ -47,6 +47,10 @@ public class ClienteContainer implements Serializable {
         this.clientes.add(new Cliente(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), getNewNumber()));
     }
 
+    public void add(long numCliente, Cliente obj) {
+        this.clientes.add(new Cliente(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), numCliente));
+    }
+
     public void update(int numCliente, String nome, Date dataNascimento, int nIF, String genero) {
         Cliente cliente = search(numCliente);
         if (cliente != null) {
@@ -73,54 +77,4 @@ public class ClienteContainer implements Serializable {
             throw new ElementoNaoExisteException("Erro.");
         }
     }
-    //INICIO ESTATISTICA
-    public ArrayList<Pessoa> getNClientesMaisVelhos(int n) {
-        boolean flag;
-        ArrayList<Pessoa> lista = new ArrayList<>();
-        if (n <= 0) {
-            return lista;
-        }
-        for (Pessoa p : clientes) {
-            flag = false;
-            for (int i = 0; i < lista.size(); i++) {
-                if (p.getDataNascimento().isEarlier(lista.get(i).getDataNascimento())) {
-                    lista.add(i, p);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                lista.add(p);
-            }
-        }
-        if (lista.size() > n) {
-            lista.subList(n, lista.size()).clear();
-        }
-        return lista;
-    }
-    public ArrayList<Pessoa> getNClientesMaisNovos(int n) {
-        boolean flag;
-        ArrayList<Pessoa> lista = new ArrayList<>();
-        if (n <= 0) {
-            return lista;
-        }
-        for (Pessoa p : clientes) {
-            flag = false;
-            for (int i = 0; i < lista.size(); i++) {
-                if (!p.getDataNascimento().isEarlier(lista.get(i).getDataNascimento())) {
-                    lista.add(i, p);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                lista.add(p);
-            }
-        }
-        if (lista.size() > n) {
-            lista.subList(n, lista.size()).clear();
-        }
-        return lista;
-    }
-    // FIM ESTATISTICA
 }

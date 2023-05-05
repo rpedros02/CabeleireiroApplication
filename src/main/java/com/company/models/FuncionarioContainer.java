@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class FuncionarioContainer implements Serializable {
     private ArrayList<Funcionario> funcionarios;
 
-    protected FuncionarioContainer() {
+    public FuncionarioContainer() {
         this.funcionarios = new ArrayList<>();
     }
 
@@ -33,59 +33,7 @@ public class FuncionarioContainer implements Serializable {
     public void removeFuncionario(int id) {
         funcionarios.removeIf(funcionario -> funcionario.getNumFuncionario() == id);
     }
-//INICIO ESTATISTICA
-    public ArrayList<Pessoa> getNFuncionariosMaisVelhos(int n) {
-        boolean flag;
-        ArrayList<Pessoa> lista = new ArrayList<>();
-        if (n <= 0) {
-            return lista;
-        }
-        for (Pessoa p : funcionarios) {
-            flag = false;
-            for (int i = 0; i < lista.size(); i++) {
-                if (p.getDataNascimento().isEarlier(lista.get(i).getDataNascimento())) {
-                    lista.add(i, p);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                lista.add(p);
-            }
-        }
-        if (lista.size() > n) {
-            lista.subList(n, lista.size()).clear();
-        }
-        return lista;
-    }
-    public ArrayList<Pessoa> getNFuncionariosMaisNovos(int n) {
-        boolean flag;
-        ArrayList<Pessoa> lista = new ArrayList<>();
-        if (n <= 0) {
-            return lista;
-        }
-        for (Pessoa p : funcionarios) {
-            flag = false;
-            for (int i = 0; i < lista.size(); i++) {
-                if (!p.getDataNascimento().isEarlier(lista.get(i).getDataNascimento())) {
-                    lista.add(i, p);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                lista.add(p);
-            }
-        }
-        if (lista.size() > n) {
-            lista.subList(n, lista.size()).clear();
-        }
-        return lista;
-    }
 
-
-
-    // FIM ESTATISTICA
     public Funcionario search(int id) {
         Funcionario funcionario;
         for (Funcionario value : this.funcionarios) {
@@ -99,6 +47,9 @@ public class FuncionarioContainer implements Serializable {
 
     public void add(Funcionario obj) {
         this.funcionarios.add(new Funcionario(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), getNewNumber()));
+    }
+    public void add(long id,Funcionario obj) {
+        this.funcionarios.add(new Funcionario(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), id));
     }
 
     private long getNewNumber() {
@@ -122,6 +73,7 @@ public class FuncionarioContainer implements Serializable {
             throw new ElementoNaoExisteException("Cliente " + numFuncionario + " não existe.");
         }
     }
+
     public void remove(int number) {
         Funcionario funcionario = search(number);
         if (funcionario != null) {

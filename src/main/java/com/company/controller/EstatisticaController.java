@@ -29,4 +29,40 @@ public class EstatisticaController {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
+
+    @GetMapping(value = "/clientesmaisvelhos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getNClientesMaisVelhos(@PathVariable("number") int num) {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getNClientesMaisVelhos(num), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping(value = "/clientesmaisnovos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getNClientesMaisNovos(@PathVariable("number") int num) {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getNClientesMaisNovos(num), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping(value = "/funcionariosmaisvelhos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getNFuncionariosMaisVelhos(@PathVariable("number") int num) {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getNFuncionariosMaisVelhos(num), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping(value = "/funcionariosmaisnovos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getNFuncionariosMaisNovos(@PathVariable("number") int num) {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getNFuncionariosMaisNovos(num), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
 }
