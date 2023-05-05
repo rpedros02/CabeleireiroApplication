@@ -21,7 +21,7 @@ public class FuncionarioController {
     }
 
     @GetMapping(value = "/funcionarios/{number}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getCliente(@PathVariable("number") int id) {
+    public ResponseEntity<Object> getFuncionario(@PathVariable("number") int id) {
         try {
             return new ResponseEntity<>(ClienteService.getClienteInfo(id), HttpStatus.OK);
         } catch (Exception e) {
