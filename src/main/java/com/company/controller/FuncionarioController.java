@@ -2,7 +2,11 @@ package com.company.controller;
 
 import com.company.dto.ClienteDTO;
 import com.company.dto.ErrorDto;
+import com.company.dto.FuncionarioDTO;
+import com.company.dto.Mapper;
+import com.company.models.Funcionario;
 import com.company.service.ClienteService;
+import com.company.service.FuncionarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,34 +18,34 @@ public class FuncionarioController {
     @GetMapping(value = "/funcionarios", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Object> getFuncionarios() {
         try {
-            return new ResponseEntity<>(ClienteService.getClientes(), HttpStatus.OK);
+            return new ResponseEntity<>(FuncionarioService.getFuncionarios(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
 
     @GetMapping(value = "/funcionarios/{number}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getFuncionario(@PathVariable("number") int id) {
+    public ResponseEntity<Object> getFuncionarioInfo(@PathVariable("number") int id) {
         try {
-            return new ResponseEntity<>(ClienteService.getClienteInfo(id), HttpStatus.OK);
+            return new ResponseEntity<>(FuncionarioService.getFuncionarioInfo(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
 
     @PostMapping(value = "/funcionarios/create", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addCliente(@RequestBody ClienteDTO arg){
+    public ResponseEntity<Object> addFuncionario(@RequestBody FuncionarioDTO arg){
         try{
-            ClienteService.addCliente(arg);
+            FuncionarioService.addFuncionario(arg);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch(Exception e){
             return new ResponseEntity<>(new ErrorDto(e.getMessage()),HttpStatus.CONFLICT);
         }
     }
     @PutMapping(value = "/funcionarios/{number}", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updateCliente(@PathVariable("number") int number, @RequestBody ClienteDTO arg) {
+    public ResponseEntity<Object> updateFuncionarios(@PathVariable("number") int number, @RequestBody FuncionarioDTO arg) {
         try {
-            ClienteService.updateCliente(number, arg);
+            FuncionarioService.updateFuncionario(number,arg);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
@@ -49,9 +53,9 @@ public class FuncionarioController {
     }
 
     @DeleteMapping(value = "/funcionarios/{number}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> removeCliente(@PathVariable("number") int number) {
+    public ResponseEntity<Object> removeFuncionario(@PathVariable("number") int number) {
         try {
-            ClienteService.removeCliente(number);
+            FuncionarioService.removeFuncionario(number);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
