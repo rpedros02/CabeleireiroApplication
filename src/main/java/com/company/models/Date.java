@@ -122,8 +122,8 @@ public class Date implements Serializable {
      * @param date → Given Date - Date
      * @return true if this Date is later than the given one, false otherwise.
      */
-    private boolean isLater(Date date) {
-        return !(isEarlier(date) && isEqual(date));
+    public boolean isLater(Date date) {
+        return !isEarlier(date);
     }
 
     /**
