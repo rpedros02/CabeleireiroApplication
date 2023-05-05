@@ -1,5 +1,6 @@
 package com.company.dto;
 
+import com.company.enums.Genero;
 import com.company.models.*;
 
 import java.util.ArrayList;
@@ -96,11 +97,21 @@ public class Mapper {
     }
 
     public static FuncionarioDTO funcionario2FuncionarioDTO (Funcionario arg){
-        return new FuncionarioDTO(arg.getNumFuncionario(), arg.getNome());
+        return new FuncionarioDTO(arg.getNumFuncionario(), arg.getNome(), date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
     }
 
     public static Funcionario funcionarioDTO2Funcionario(FuncionarioDTO arg){
-        return new Funcionario(arg.getNumeroFuncionario(), arg.getNome());
+        return new Funcionario(arg.getNome(),Mapper.dateDTO2Date(arg.getDataNascimento()),arg.getNif(),string2Genero(arg.getGenero()), arg.getNumeroFuncionario());
+    }
+
+    public static Genero string2Genero(String arg){
+        if(arg.equalsIgnoreCase("masculino")){
+            return Genero.MASCULINO;
+        }else if(arg.equalsIgnoreCase("feminino")){
+            return Genero.FEMININO;
+        }else {
+            return Genero.NAOBINARIO;
+        }
     }
 
     public static ClienteListDTO clienteContainer2ClienteListDTO(ClienteContainer arg) {
