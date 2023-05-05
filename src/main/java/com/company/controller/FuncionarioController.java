@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class FuncionarioController {
     @GetMapping(value = "/funcionarios", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getClientes() {
+    public ResponseEntity<Object> getFuncionarios() {
         try {
             return new ResponseEntity<>(ClienteService.getClientes(), HttpStatus.OK);
         } catch (Exception e) {
