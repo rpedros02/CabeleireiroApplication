@@ -57,11 +57,11 @@ public class Mapper {
     }
 
     public static ServicoDTO servico2ServicoDTO(Servico arg) {
-        return new ServicoDTO(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()));
+        return new ServicoDTO(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()), produtoContainer2ProdutoListDTO(arg.getProdutoContainer()), arg.aDecorrer);
     }
 
     public static Servico servicodto2Servico(ServicoDTO arg) {
-        return new Servico(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), dateDTO2Date(arg.getDataServico()), horarioServicoDTO2HorarioServico(arg.getHorarioServico()));
+        return new Servico(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), dateDTO2Date(arg.getDataServico()), horarioServicoDTO2HorarioServico(arg.getHorarioServico()),arg.isaDecorrer(), Mapper.produtoListDTO2ProdutoContainer(arg.getProdutoListDTO()));
     }
 
     public static ServicoListDTO servicoList2ServicoListDTO(ServicosContainer arg) {
@@ -152,6 +152,14 @@ public class Mapper {
             temp.add(produto2ProdutoDTO(p));
         }
         return new ProdutoListDTO(temp);
+    }
+
+    public static ProdutoContainer produtoListDTO2ProdutoContainer(ProdutoListDTO arg) {
+        ArrayList<Produto> temp = new ArrayList<>();
+        for (ProdutoDTO p : arg.getProdutos()) {
+            temp.add(produtoDTO2Produto(p));
+        }
+        return new ProdutoContainer(temp);
     }
 
 }

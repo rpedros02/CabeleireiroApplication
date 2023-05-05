@@ -48,6 +48,16 @@ public class ServicosContainer implements Serializable {
         }
         return null;
     }
+    public Servico searchByCliente(int id) {
+        Servico servico;
+        for (Servico value : this.servicos) {
+            servico = value;
+            if (servico.getNumCliente() == id) {
+                return servico;
+            }
+        }
+        return null;
+    }
 
     private long getNewNumber() {
         long num = 0;

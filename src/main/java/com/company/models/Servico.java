@@ -15,6 +15,7 @@ public class Servico implements Serializable {
      * Horário a que o Serviço foi efetuado. Ver {@link HorarioServico}.
      */
     private HorarioServico horarioServico;
+    private ProdutoContainer produtoContainer;
     public boolean aDecorrer;
 
     /**
@@ -31,14 +32,16 @@ public class Servico implements Serializable {
         this.numFuncionario = numFuncionario;
         this.dataServico = dataServico;
         this.horarioServico = horarioServico;
+        this.produtoContainer = new ProdutoContainer();
         aDecorrer = true;
     }
-    public Servico(long numPedido, long numcliente, long numFuncionario, Date dataServico, HorarioServico horarioServico, boolean aDecorrer) {
+    public Servico(long numPedido, long numcliente, long numFuncionario, Date dataServico, HorarioServico horarioServico, boolean aDecorrer,ProdutoContainer produtoContainer) {
         this.numPedido = numPedido;
         this.numCliente = numcliente;
         this.numFuncionario = numFuncionario;
         this.dataServico = dataServico;
         this.horarioServico = horarioServico;
+        this.produtoContainer = produtoContainer;
         this.aDecorrer = aDecorrer;
     }
     /**
@@ -87,5 +90,14 @@ public class Servico implements Serializable {
 
     public void setNumFuncionario(long numFuncionario) {
         this.numFuncionario = numFuncionario;
+    }
+
+
+    public ProdutoContainer getProdutoContainer() {
+        return produtoContainer;
+    }
+
+    public void setProdutoContainer(ProdutoContainer produtoContainer) {
+        this.produtoContainer = produtoContainer;
     }
 }

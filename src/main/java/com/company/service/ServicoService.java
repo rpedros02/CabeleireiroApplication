@@ -18,6 +18,17 @@ public class ServicoService {
         return Mapper.servico2ServicoDTO(cabeleireiro.getServicos().search(id));
     }
 
+    public static ServicoListDTO getServicosPorCliente(long id) {
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        ServicosContainer container = new ServicosContainer();
+        for (Servico s : cabeleireiro.getServicos().getServicos()) {
+            if (s.getNumCliente() == id) {
+                container.getServicos().add(s);
+            }
+        }
+        return Mapper.servicoList2ServicoListDTO(container);
+    }
+
     public static void addServico(ServicoDTO arg){
         Cabeleireiro cabeleireiro = FilesOperation.load();
         cabeleireiro.getServicos().add(Mapper.servicodto2Servico(arg));

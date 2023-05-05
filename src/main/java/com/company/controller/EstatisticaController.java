@@ -65,4 +65,13 @@ public class EstatisticaController {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
+
+    @GetMapping(value = "/clientemaisservicos/", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getClienteMaisServicos() {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getClienteMaisServicos(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
 }
