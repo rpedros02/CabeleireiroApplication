@@ -24,6 +24,15 @@ public class MockData {
         return nomes[genRandomInt(0, nomes.length)] + " " + apelidos[genRandomInt(0, apelidos.length)];
     }
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
     private String genNameProduto() {
         return produtos[genRandomInt(0, produtos.length)];
     }
@@ -40,8 +49,8 @@ public class MockData {
     }
 
     private Date genDate() {
-        int day = genRandomInt(1,27);
-        int month = genRandomInt(1,12);
+        int day = genRandomInt(1, 27);
+        int month = genRandomInt(1, 12);
         int year = genRandomInt(1970, Year.now().getValue());
         return new Date(day, month, year);
     }
@@ -70,13 +79,13 @@ public class MockData {
 
     private void insertServicos(ServicosContainer container) {
         for (int i = 0; i <= NUM_INICIAL_SERVICOS; i++) {
-            container.add(new Servico(i + 1,(long) genRandomInt(1,20), genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false));
+            container.add(new Servico(i + 1, (long) genRandomInt(1, 20), genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false));
         }
     }
 
     private void insertProdutos(ProdutoContainer container) {
         for (int i = 0; i <= NUM_INICIAL_PRODUTOS; i++) {
-            container.addProduto(new Produto(i + 1, genNameProduto(), genRandomDouble(0.0, 49.99)));
+            container.addProduto(new Produto(i + 1, genNameProduto(), round(genRandomDouble(0.0, 49.99),2)));
         }
     }
 
