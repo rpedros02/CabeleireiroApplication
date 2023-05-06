@@ -5,7 +5,9 @@ import com.company.dto.*;
 import com.company.models.*;
 import com.company.repository.FilesOperation;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EstatisticaService {
@@ -19,6 +21,7 @@ public class EstatisticaService {
         }
         return Mapper.servicoList2ServicoListDTO(container);
     }
+
 
     public static int getNServicosPorFuncionario(long id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
@@ -164,4 +167,44 @@ public class EstatisticaService {
         }
         return Mapper.cliente2ClienteDTO(cabeleireiro.getClientes().search((int) idmax));
     }
+
+    public static int nCriticasPorAno(int ano) {
+        int count = 0;
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
+            if (c.getDataCritica().getYear() == ano) count++;
+        }
+        return count;
+    }
+
+    public static int getAnoMaisCriticas() {
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        int maxDate = 0;
+        int max = 0;
+        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
+            if (nCriticasPorAno(c.getDataCritica().getYear()) > max) {
+                maxDate = c.getDataCritica().getYear();
+                max = nCriticasPorAno(c.getDataCritica().getYear());
+            }
+        }
+        return maxDate;
+    }
+
+    public static double getMediaAvaliacoes() {
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        double soma = 0;
+        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
+            soma += c.getAvaliacao();
+        }
+        return round(soma / cabeleireiro.getCriticas().getCriticas().size(), 2);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
 }

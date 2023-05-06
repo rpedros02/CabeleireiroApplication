@@ -74,4 +74,22 @@ public class EstatisticaController {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
+
+    @GetMapping(value = "/anomaiscriticas/", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getAnoMaisCriticas() {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getAnoMaisCriticas(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping(value = "/mediaavaliacoes/", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> getMediaAvaliacoes() {
+        try {
+            return new ResponseEntity<>(EstatisticaService.getMediaAvaliacoes(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
 }

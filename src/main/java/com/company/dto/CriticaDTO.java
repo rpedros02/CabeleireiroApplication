@@ -3,7 +3,8 @@ package com.company.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-@JsonPropertyOrder({"numeroCliente","avaliacao","texto","dataCritica"})
+
+@JsonPropertyOrder({"numeroCliente", "avaliacao", "texto", "dataCritica"})
 @JacksonXmlRootElement(localName = "critica")
 public class CriticaDTO {
     @JacksonXmlProperty(localName = "numeroCliente")
@@ -23,6 +24,13 @@ public class CriticaDTO {
         this.dataCritica = dataCritica;
     }
 
+    public CriticaDTO() {
+        this.numeroCliente = getNumeroCliente();
+        this.avaliacao = getAvaliacao();
+        this.texto = getTexto();
+        this.dataCritica = getDataCritica();
+    }
+
     public int getAvaliacao() {
         return avaliacao;
     }
@@ -30,6 +38,7 @@ public class CriticaDTO {
     public String getTexto() {
         return texto;
     }
+
     public DateDTO getDataCritica() {
         return dataCritica;
     }
