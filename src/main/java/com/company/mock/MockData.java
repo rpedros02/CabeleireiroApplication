@@ -18,7 +18,7 @@ public class MockData {
     private int[] numerosFuncionarios = {1111, 2222, 3333, 4444, 5555, 6666};
     private String[] nomes = {"António", "Marta", "Rita", "Tomás", "Ana", "Gustavo", "Renata", "Catarina", "Joana", "Margarida", "Maria", "Mariana", "Pedro", "João", "Dínis", "Diogo", "José", "Rodrigo", "Guilherme"};
     private String[] apelidos = {"Silva", "Pinto", "Castro", "Carvalho", "Horta", "Marques", "Ortiz", "Conceição", "Figueiredo", "Besteiro", "Pereira", "Lopes", "Salvador", "Rodrigues", "Alves"};
-    private String[] produtos = {"Shampoo Cabelos Lisos", "Condicionador", "Tinta sem Amoníaco", "Shampoo Cabelos Oleosos", "Cera FIXtudo", "Shampoo Cabelos Secos", "Shampoo Anti-Caspa"};
+    private String[] produtos = {"Shampoo Cabelo Liso", "Shampoo Cabelo Encaracolado", "Shampoo Cabelo Crespo", "Amaciador Cabelo Seco", "Cera FIXtudo", "Amaciador Cabelo Olesoso", "Amaciador Cabelo Misto","Desembaraçador","Protetor Térmico"};
 
     private String genName() {
         return nomes[genRandomInt(0, nomes.length)] + " " + apelidos[genRandomInt(0, apelidos.length)];
