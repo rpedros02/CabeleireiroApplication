@@ -35,7 +35,7 @@ public class ServicosContainer implements Serializable {
     }
 
     public void add(Servico arg) {
-        this.servicos.add(new Servico(getNewNumber(), arg.getNumCliente(), arg.getNumFuncionario(), arg.getDataServico(), arg.getHorarioServico()));
+        this.servicos.add(new Servico(getNewNumber(), arg.getNumCliente(), arg.getNumFuncionario(), arg.getDataServico(), arg.getHorarioServico(),arg.isaDecorrer(),arg.getProdutoContainer()));
     }
 
     public Servico search(int id) {

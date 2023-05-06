@@ -3,15 +3,16 @@ package com.company.mock;
 import com.company.enums.*;
 import com.company.models.*;
 import com.company.repository.FilesOperation;
-
 import java.time.Year;
 import java.util.concurrent.ThreadLocalRandom;
+
 
 public class MockData {
 
     private final int NUM_INICIAL_CLIENTES = 20;
     private final int NUM_INICIAL_SERVICOS = 15;
     private final int NUM_INICIAL_PRODUTOS = 10;
+    private final int NUM_INICIAL_CRITICAS = 19;
 
     private final int NUM_INICIAL_FUNCIONARIOS = 6;
     private int[] numerosFuncionarios = {1111, 2222, 3333, 4444, 5555, 6666};
@@ -79,16 +80,27 @@ public class MockData {
     private void insertServicos(ServicosContainer container) {
         for (int i = 0; i <= NUM_INICIAL_SERVICOS; i++) {
             ProdutoContainer container1 = new ProdutoContainer();
-            for (int j = 0; j < genRandomInt(1, 11); j++) {
-                insertProdutos(container1);
-            }
+            insertProdutosInServicos(container1,genRandomInt(0,11));
             container.add(new Servico(i + 1, (long) genRandomInt(1, 20), numerosFuncionarios[genRandomInt(0, numerosFuncionarios.length)], genDate(), new HorarioServico(genRandomInt(6, 12), genRandomInt(14, 21)), false, container1));
         }
     }
 
+    private ProdutoContainer insertProdutosInServicos(ProdutoContainer container,int num) {
+        for (int i = 0; i <= num; i++) {
+            container.addProduto(new Produto(i + 1, genNameProduto(), round(genRandomDouble(0.0, 49.99), 2)));
+        }
+        return container;
+    }
     private void insertProdutos(ProdutoContainer container) {
         for (int i = 0; i <= NUM_INICIAL_PRODUTOS; i++) {
             container.addProduto(new Produto(i + 1, genNameProduto(), round(genRandomDouble(0.0, 49.99), 2)));
+        }
+    }
+
+    private void insertCritica(CriticaContainer container){
+        for(int i = 0; i <=NUM_INICIAL_CRITICAS; i++){
+            String mock = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lorem sem, auctor sit amet magna eget, sagittis hendrerit nibh. Quisque eget tempus metus. Duis egestas finibus felis in sodales. Donec ut ante faucibus, placerat turpis et, sodales risus. Proin et augue eget quam consectetur consectetur. Quisque dictum, sapien quis gravida sodales, odio sapien condimentum ipsum, ut sollicitudin purus turpis aliquam ante. Ut pulvinar auctor lacus a euismod. Sed ante leo, aliquam convallis lectus at, porta. ";
+            container.add(new Critica(genRandomInt(1,NUM_INICIAL_CLIENTES),genRandomInt(0,10),mock,genDate()));
         }
     }
 
@@ -102,5 +114,6 @@ public class MockData {
         insertFuncionarios(cabeleireiro.getFuncionarios());
         insertServicos(cabeleireiro.getServicos());
         insertProdutos(cabeleireiro.getProdutos());
+        insertCritica(cabeleireiro.getCriticas());
     }
 }

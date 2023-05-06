@@ -5,7 +5,6 @@ import com.company.exceptions.ElementoNaoExisteException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ClienteContainer implements Serializable {
     private ArrayList<Cliente> clientes;

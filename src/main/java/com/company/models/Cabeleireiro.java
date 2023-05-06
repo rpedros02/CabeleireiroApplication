@@ -18,6 +18,7 @@ public class Cabeleireiro implements Serializable {
     private FuncionarioContainer funcionarios;
     private ClienteContainer clientes;
     private ProdutoContainer produtos;
+    private CriticaContainer criticas;
 
 
     /**
@@ -43,9 +44,10 @@ public class Cabeleireiro implements Serializable {
         this.funcionarios = new FuncionarioContainer();
         this.clientes = new ClienteContainer();
         this.produtos = new ProdutoContainer();
+        this.criticas = new CriticaContainer();
     }
 
-    public Cabeleireiro(String nome, String morada, double saldo, int numCadeirasLavagem, int numCadeirasBrushing, Horario horario, ServicosContainer servicosADecorrer, ServicosContainer servicos, FuncionarioContainer funcionarios, ClienteContainer clientes, ProdutoContainer produtos) {
+    public Cabeleireiro(String nome, String morada, double saldo, int numCadeirasLavagem, int numCadeirasBrushing, Horario horario, ServicosContainer servicosADecorrer, ServicosContainer servicos, FuncionarioContainer funcionarios, ClienteContainer clientes, ProdutoContainer produtos, CriticaContainer criticas) {
         this.nome = nome;
         this.morada = morada;
         this.saldo = saldo;
@@ -57,6 +59,7 @@ public class Cabeleireiro implements Serializable {
         this.funcionarios = funcionarios;
         this.clientes = clientes;
         this.produtos = produtos;
+        this.criticas = criticas;
     }
 
     public Cabeleireiro(String nome, String morada, double saldo, int numCadeirasLavagem, int numCadeirasBrushing) {
@@ -71,6 +74,7 @@ public class Cabeleireiro implements Serializable {
         this.funcionarios = new FuncionarioContainer();
         this.clientes = new ClienteContainer();
         this.produtos = new ProdutoContainer();
+        this.criticas = new CriticaContainer();
     }
 
 
@@ -160,5 +164,9 @@ public class Cabeleireiro implements Serializable {
 
     public ServicosContainer getServicos() {
         return servicos;
+    }
+
+    public CriticaContainer getCriticas() {
+        return criticas;
     }
 }

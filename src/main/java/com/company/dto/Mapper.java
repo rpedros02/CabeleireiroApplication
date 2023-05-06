@@ -23,13 +23,13 @@ public class Mapper {
         return new DateDTO(arg.getDay(), arg.getMonth(), arg.getYear());
     }
 
-    public static Critica CriticaDTO2Critica(CriticaDTO arg) {
+    public static Critica criticaDTO2Critica(CriticaDTO arg) {
         Date date = dateDTO2Date(arg.getDataCritica());
         return new Critica(arg.getNumeroCliente(), arg.getAvaliacao(), arg.getTexto(), date);
     }
 
     public static CriticaDTO critica2CriticaDTO(Critica arg) {
-        return new CriticaDTO(arg.getCliente().getNumeroCliente(), arg.getAvaliacao(), arg.getTexto(), date2DateDTO(arg.getDataCritica()));
+        return new CriticaDTO(arg.getCliente(), arg.getAvaliacao(), arg.getTexto(), date2DateDTO(arg.getDataCritica()));
     }
 
     public static HorarioDTO horario2HorarioDTO(Horario arg) {
@@ -160,6 +160,22 @@ public class Mapper {
             temp.add(produtoDTO2Produto(p));
         }
         return new ProdutoContainer(temp);
+    }
+
+    public static CriticaListDTO criticaContainer2CriticaListDTO(CriticaContainer arg) {
+        ArrayList<CriticaDTO> temp = new ArrayList<>();
+        for (Critica c : arg.getCriticas()) {
+            temp.add(critica2CriticaDTO(c));
+        }
+        return new CriticaListDTO(temp);
+    }
+
+    public static CriticaContainer criticalistDTO2CriticaContainer(CriticaListDTO arg) {
+        ArrayList<Critica> temp = new ArrayList<>();
+        for (CriticaDTO c : arg.getCriticas()) {
+            temp.add(criticaDTO2Critica(c));
+        }
+        return new CriticaContainer(temp);
     }
 
 }

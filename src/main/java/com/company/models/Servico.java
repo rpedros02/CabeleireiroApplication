@@ -26,15 +26,7 @@ public class Servico implements Serializable {
      * @param dataServico    → Data do Serviço - Date
      * @param horarioServico → Hora e Minuto do Serviço - HorarioServico
      */
-    public Servico(long numPedido, long numCliente, long numFuncionario, Date dataServico, HorarioServico horarioServico) {
-        this.numPedido = numPedido;
-        this.numCliente = numCliente;
-        this.numFuncionario = numFuncionario;
-        this.dataServico = dataServico;
-        this.horarioServico = horarioServico;
-        this.produtoContainer = new ProdutoContainer();
-        aDecorrer = true;
-    }
+
     public Servico(long numPedido, long numcliente, long numFuncionario, Date dataServico, HorarioServico horarioServico, boolean aDecorrer,ProdutoContainer produtoContainer) {
         this.numPedido = numPedido;
         this.numCliente = numcliente;
@@ -52,6 +44,7 @@ public class Servico implements Serializable {
     public void encerrarServico(Servico servico) {
         servico.aDecorrer = false;
     }
+    public boolean isaDecorrer(){return aDecorrer;}
 
     public long getNumPedido() {
         return numPedido;
