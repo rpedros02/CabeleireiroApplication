@@ -1,9 +1,7 @@
 package com.company.controller;
 
-import com.company.dto.ClienteDTO;
 import com.company.dto.CriticaDTO;
 import com.company.dto.ErrorDto;
-import com.company.service.ClienteService;
 import com.company.service.CriticaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +22,7 @@ public class CriticaController {
     }
 
     @GetMapping(value = "/criticas/{number}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getCriticas(@PathVariable("number") int id) {
+    public ResponseEntity<Object> getCritica(@PathVariable("number") int id) {
         try {
             return new ResponseEntity<>(CriticaService.getCriticaInfo(id), HttpStatus.OK);
         } catch (Exception e) {
