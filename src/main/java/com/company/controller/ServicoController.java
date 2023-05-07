@@ -29,7 +29,7 @@ public class ServicoController {
     }
 
     @GetMapping(value = "/servicos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getServicoInfo(@PathVariable("number") int id) {
+    public ResponseEntity<Object> getServicosInfo(@PathVariable("number") int id) {
         try {
             return new ResponseEntity<>(ServicoService.getServicoInfo(id), HttpStatus.OK);
         } catch (Exception e) {

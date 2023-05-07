@@ -21,7 +21,7 @@ public class CabeleireiroController {
     }
 
     @PutMapping(value = "/cabeleireiro", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updateCliente(@RequestBody CabeleireiroDTO arg) {
+    public ResponseEntity<Object> updateCabeleireiro(@RequestBody CabeleireiroDTO arg) {
         try {
             CabeleireiroService.updateCabeleireiro(arg);
             return new ResponseEntity<>(HttpStatus.OK);
