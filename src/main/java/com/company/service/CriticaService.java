@@ -4,25 +4,24 @@ import com.company.dto.*;
 import com.company.models.*;
 import com.company.repository.FilesOperation;
 
+import java.util.List;
+
 public class CriticaService {
-    public static CriticaListDTO getCriticas() {
+    public static CriticaListDto getCriticas() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        CriticaContainer list = cabeleireiro.getCriticas();
-        return Mapper.criticaContainer2CriticaListDTO(list);
+        List<Critica> list = cabeleireiro.getCriticas().getAll();
+        CriticaListDto result = Mapper.criticaList2CriticaListDto(list);
+        return result;
     }
 
-    public static CriticaListDTO getCriticaInfo(long id) {
+    public static CriticaDto getCriticaInfo(int id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        CriticaContainer container = new CriticaContainer();
-        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
-            if (c.getCliente() == id) {
-                container.getCriticas().add(c);
-            }
-        }
-        return Mapper.criticaContainer2CriticaListDTO(container);
+        Critica item = cabeleireiro.getCriticas().get(id);
+        CriticaDto result = Mapper.critica2CriticaDTO(item);
+        return result;
     }
 
-    public static void addCritica(CriticaDTO arg) {
+    public static void addCritica(CriticaDto arg) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         cabeleireiro.getCriticas().add(Mapper.criticaDTO2Critica(arg));
         FilesOperation.save(cabeleireiro);

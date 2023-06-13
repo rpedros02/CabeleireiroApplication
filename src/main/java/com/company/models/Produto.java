@@ -36,7 +36,12 @@ public class Produto implements Serializable {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
+    public boolean isEqualTo(int nr) {
+        if (this.id == nr) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public String toString() {
         return "Produto\n" +

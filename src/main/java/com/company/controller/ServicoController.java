@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.ErrorDto;
-import com.company.dto.ServicoDTO;
+import com.company.dto.ServicoDto;
 import com.company.service.ServicoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,15 +19,6 @@ public class ServicoController {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
-    @GetMapping(value = "/servicosbycliente/{number}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getServicosByCliente(@PathVariable("number") int id) {
-        try {
-            return new ResponseEntity<>(ServicoService.getServicosPorCliente(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);
-        }
-    }
-
     @GetMapping(value = "/servicos/{number}", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Object> getServicosInfo(@PathVariable("number") int id) {
         try {
@@ -38,7 +29,7 @@ public class ServicoController {
     }
 
     @PostMapping(value = "/servicos/create", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addServico(@RequestBody ServicoDTO arg){
+    public ResponseEntity<Object> addServico(@RequestBody ServicoDto arg){
         try{
             ServicoService.addServico(arg);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -48,9 +39,9 @@ public class ServicoController {
     }
 
     @PutMapping(value = "/servicos/{number}", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updateServico(@PathVariable("number") int number, @RequestBody ServicoDTO arg) {
+    public ResponseEntity<Object> updateServico(@PathVariable("number") int number, @RequestBody ServicoDto arg) {
         try {
-            ServicoService.updateServico(number, arg);
+            ServicoService.updateServico(number,arg);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.CONFLICT);

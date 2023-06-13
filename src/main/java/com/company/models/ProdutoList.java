@@ -40,12 +40,12 @@ public class ProdutoList implements Serializable {
         throw new ElementoNaoExisteException("Protudo " + id + " não existe");
     }
 
-    public Produto getProdutoByName(String name) {
+    public Produto getProdutoByName(String nome) {
         for (Produto produto : stock) {
-            if (produto.getNome().equals(name)) {
+            if (produto.getNome().equals(nome)) {
                 return produto;
             }
         }
-        throw new ElementoNaoExisteException("Protudo " + name + " não existe");
+        throw new ElementoNaoExisteException("Protudo " + nome + " não existe");
     }
 }

@@ -4,40 +4,29 @@ import com.company.dto.*;
 import com.company.models.*;
 import com.company.repository.FilesOperation;
 
-import java.util.Map;
+import java.util.List;
 
 public class ServicoService {
-    public static ServicoListDTO getServicos() {
+    public static ServicoListDto getServicos() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        ServicosContainer list = cabeleireiro.getServicos();
-        return Mapper.servicoList2ServicoListDTO(list);
+        List<Servico> list=cabeleireiro.getServicos().getAll();
+        ServicoListDto result = Mapper.servicoList2ServicoListDto(list);
+        return result;
     }
 
-    public static ServicoDTO getServicoInfo(int id) {
+    public static ServicoDto getServicoInfo(int id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         return Mapper.servico2ServicoDTO(cabeleireiro.getServicos().search(id));
     }
-
-    public static ServicoListDTO getServicosPorCliente(long id) {
+    public static void addServico(ServicoDto arg){
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        ServicosContainer container = new ServicosContainer();
-        for (Servico s : cabeleireiro.getServicos().getServicos()) {
-            if (s.getNumCliente() == id) {
-                container.getServicos().add(s);
-            }
-        }
-        return Mapper.servicoList2ServicoListDTO(container);
-    }
-
-    public static void addServico(ServicoDTO arg){
-        Cabeleireiro cabeleireiro = FilesOperation.load();
-        cabeleireiro.getServicos().add(Mapper.servicodto2Servico(arg));
+        cabeleireiro.getServicos().add(Mapper.servicoDto2Servico(arg));
         FilesOperation.save(cabeleireiro);
     }
 
-    public static void updateServico(int numPedido,ServicoDTO arg){
+    public static void updateServico(int numeroPedido,ServicoDto arg){
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        cabeleireiro.getServicos().update(numPedido, arg.getNumCliente(), Mapper.dateDTO2Date(arg.getDataServico()),Mapper.horarioServicoDTO2HorarioServico(arg.getHorarioServico()));
+        cabeleireiro.getServicos().update(numeroPedido, arg.getNumeroCliente(),arg.getNumeroFuncionario(), Mapper.dateDTO2Date(arg.getDataServico()),Mapper.horarioServicoDTO2HorarioServico(arg.getHorarioServico()));
         FilesOperation.save(cabeleireiro);
     }
 

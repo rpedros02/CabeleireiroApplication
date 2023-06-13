@@ -1,181 +1,156 @@
 package com.company.dto;
 
-import com.company.enums.Genero;
+
 import com.company.models.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Mapper {
 
-    public static ProdutoDTO produto2ProdutoDTO(Produto arg) {
-        return new ProdutoDTO(arg.getId(), arg.getNome(), arg.getPreco());
+    public static ProdutoDto produto2ProdutoDTO(Produto arg) {
+        return new ProdutoDto(arg.getId(), arg.getNome(), arg.getPreco());
     }
 
-    public static Produto produtoDTO2Produto(ProdutoDTO arg) {
+    public static Produto produtoDTO2Produto(ProdutoDto arg) {
         return new Produto(arg.getId(), arg.getNome(), arg.getPreco());
     }
 
-    public static Date dateDTO2Date(DateDTO arg) {
+    public static Date dateDTO2Date(DateDto arg) {
         return new Date(arg.getDay(), arg.getMonth(), arg.getYear());
     }
 
-    public static DateDTO date2DateDTO(Date arg) {
-        return new DateDTO(arg.getDay(), arg.getMonth(), arg.getYear());
+    public static DateDto date2DateDTO(Date arg) {
+        return new DateDto(arg.getDay(), arg.getMonth(), arg.getYear());
     }
 
-    public static Critica criticaDTO2Critica(CriticaDTO arg) {
+    public static Critica criticaDTO2Critica(CriticaDto arg) {
         Date date = dateDTO2Date(arg.getDataCritica());
         return new Critica(arg.getNumeroCliente(), arg.getAvaliacao(), arg.getTexto(), date);
     }
 
-    public static CriticaDTO critica2CriticaDTO(Critica arg) {
-        return new CriticaDTO(arg.getCliente(), arg.getAvaliacao(), arg.getTexto(), date2DateDTO(arg.getDataCritica()));
+    public static CriticaDto critica2CriticaDTO(Critica arg) {
+        return new CriticaDto(arg.getCliente(), arg.getAvaliacao(), arg.getTexto(), date2DateDTO(arg.getDataCritica()));
     }
 
-    public static HorarioDTO horario2HorarioDTO(Horario arg) {
-        return new HorarioDTO(arg.getHoraAbertura(), arg.getMinutosAbertura(), arg.getHoraFecho(), arg.getMinutosFecho());
+    public static HorarioDto horario2HorarioDTO(Horario arg) {
+        return new HorarioDto(arg.getHoraAbertura(), arg.getMinutosAbertura(), arg.getHoraFecho(), arg.getMinutosFecho());
     }
 
-    public static Horario horarioDTO2Horario(HorarioDTO arg) {
+    public static Horario horarioDTO2Horario(HorarioDto arg) {
         return new Horario(arg.getHoraAbertura(), arg.getMinutoAbertura(), arg.getHoraFecho(), arg.getMinutoFecho());
     }
 
-    public static CabeleireiroDTO cabeleireiro2CabeleireiroDTO(Cabeleireiro arg) {
-        return new CabeleireiroDTO(arg.getNome(), arg.getMorada(), arg.getSaldo(), arg.getNumCadeirasLavagem(), arg.getNumCadeirasBrushing(), horario2HorarioDTO(arg.getHorario()));
+    public static CabeleireiroDto cabeleireiro2CabeleireiroDTO(String arg) {
+        CabeleireiroDto obj = new CabeleireiroDto(arg);
+        return obj;
     }
 
-    public static Cabeleireiro cabeleireiroDTO2Cabeleireiro(CabeleireiroDTO arg) {
-        return new Cabeleireiro(arg.getNome(), arg.getMorada(), arg.getSaldo(), arg.getNumCadeirasLavagem(), arg.getNumCadeirasBrushing(), horarioDTO2Horario(arg.getHorario()));
+    public static HorarioServicoDto horarioServico2HorarioServicoDTO(HorarioServico arg) {
+        return new HorarioServicoDto(arg.getHora(), arg.getMinutos());
     }
 
-    public static HorarioServicoDTO horarioServico2HorarioServicoDTO(HorarioServico arg) {
-        return new HorarioServicoDTO(arg.getHora(), arg.getMinutos());
-    }
-
-    public static HorarioServico horarioServicoDTO2HorarioServico(HorarioServicoDTO arg) {
+    public static HorarioServico horarioServicoDTO2HorarioServico(HorarioServicoDto arg) {
         return new HorarioServico(arg.getHora(), arg.getMinuto());
     }
-
-    public static ServicoDTO servico2ServicoDTO(Servico arg) {
-        return new ServicoDTO(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), date2DateDTO(arg.getDataServico()), horarioServico2HorarioServicoDTO(arg.getHorarioServico()), produtoContainer2ProdutoListDTO(arg.getProdutoContainer()), arg.aDecorrer);
+    public static Servico servicoDto2Servico (ServicoDto arg){
+        Date date = dateDTO2Date(arg.getDataServico());
+        HorarioServico horarioServico = horarioServicoDTO2HorarioServico(arg.getHorarioServico());
+        Servico obj= new Servico(arg.getNumeroPedido(),arg.getNumeroCliente(),arg.getNumeroFuncionario(),date,horarioServico);
+        return obj;
+    }
+    public static ServicoDto servico2ServicoDTO(Servico arg) {
+        DateDto dateDto = date2DateDTO(arg.getDataServico());
+        HorarioServicoDto horarioServicoDto = horarioServico2HorarioServicoDTO(arg.getHorarioServico());
+        return new ServicoDto(arg.getNumeroPedido(),arg.getNumeroCliente(),arg.getNumeroFuncionario(),dateDto, horarioServicoDto);
     }
 
-    public static Servico servicodto2Servico(ServicoDTO arg) {
-        return new Servico(arg.getNumPedido(), arg.getNumCliente(), arg.getNumFuncionario(), dateDTO2Date(arg.getDataServico()), horarioServicoDTO2HorarioServico(arg.getHorarioServico()),arg.isaDecorrer(), Mapper.produtoListDTO2ProdutoContainer(arg.getProdutoListDTO()));
+    public static ServicoListItemDto servico2ServicoListItemDto(Servico arg){
+        ServicoListItemDto  obj = new ServicoListItemDto(arg.getNumeroPedido(),arg.getNumeroFuncionario());
+        return obj;
     }
-
-    public static ServicoListDTO servicoList2ServicoListDTO(ServicosContainer arg) {
-        ArrayList<ServicoDTO> temp = new ArrayList<>();
-        for (Servico s : arg.getServicos()) {
-            temp.add(servico2ServicoDTO(s));
+    public static ServicoListDto servicoList2ServicoListDto(List<Servico> arg){
+        ArrayList<ServicoListItemDto> list = new ArrayList<>();
+        for(Servico p : arg){
+            ServicoListItemDto item = servico2ServicoListItemDto(p);
+            list.add(item);
         }
-        return new ServicoListDTO(temp);
+        ServicoListDto  obj = new ServicoListDto(list);
+        return obj;
+    }
+    public static ClienteDto cliente2ClienteDTO(Cliente arg) {
+        return new ClienteDto(arg.getNumeroCliente(), arg.getNome(), Mapper.date2DateDTO(arg.getDataNascimento()), arg.getnIF());
     }
 
-    public static ServicosContainer servicoListDTO2ServicosList(ServicoListDTO arg) {
-        ArrayList<Servico> temp = new ArrayList<>();
-        for (ServicoDTO s : arg.getServicos()) {
-            temp.add(servicodto2Servico(s));
+    public static Cliente clienteDTO2Cliente(ClienteDto arg) {
+        return new Cliente(arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()), arg.getNif(), arg.getNumeroCliente());
+    }
+
+    public static FuncionarioDto funcionario2FuncionarioDTO(Funcionario arg) {
+        DateDto dateDTO = date2DateDTO(arg.getDataNascimento());
+        return new FuncionarioDto(arg.getNumeroFuncionario(),arg.getNome(),dateDTO,arg.getnIF());
+    }
+
+    public static Funcionario funcionarioDTO2Funcionario(FuncionarioDto arg) {
+        return new Funcionario(arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()), arg.getNif(), arg.getNumeroFuncionario());
+    }
+    public static ClienteListItemDto cliente2ClienteListItemDto(Cliente arg){
+        //DateDto date = date2DateDTO(arg.getDataNascimento());
+       ClienteListItemDto  obj = new ClienteListItemDto(arg.getNumeroCliente(),arg.getNome());
+        return obj;
+    }
+    public static ClienteListDto clienteList2ClienteListDto(List<Cliente> arg) {
+        ArrayList<ClienteListItemDto> list = new ArrayList<>();
+        for (Cliente c : arg) {
+            ClienteListItemDto item =cliente2ClienteListItemDto(c);
+            list.add(item);
         }
-        return new ServicosContainer(temp);
+        ClienteListDto obj = new ClienteListDto(list);
+        return obj;
     }
-
-    public static PessoaDTO pessoa2PessoaDTO(Pessoa arg) {
-        return new PessoaDTO(arg.getNome(), date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
+    public static FuncionarioListItemDto funcionario2FuncionarioListItemDto(Funcionario arg){
+        DateDto date = date2DateDTO(arg.getDataNascimento());
+        FuncionarioListItemDto  obj = new FuncionarioListItemDto(arg.getNumeroFuncionario(),arg.getNome());
+        return obj;
     }
-
-    public static Pessoa pessoaDTO2Pessoa(PessoaDTO arg) {
-        return new Pessoa(arg.getNome(), dateDTO2Date(arg.getDataNascimento()), arg.getnIF(), arg.getGenero());
-    }
-
-    public static ClienteDTO cliente2ClienteDTO(Cliente arg) {
-        return new ClienteDTO(arg.getNumeroCliente(), arg.getNome(), Mapper.date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
-    }
-
-    public static Cliente clienteDTO2Cliente(ClienteDTO arg) {
-        return new Cliente(arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()), arg.getNif(), arg.getGenero(), arg.getNumeroCliente());
-    }
-
-    public static FuncionarioDTO funcionario2FuncionarioDTO(Funcionario arg) {
-        return new FuncionarioDTO(arg.getNumFuncionario(), arg.getNome(), date2DateDTO(arg.getDataNascimento()), arg.getnIF(), arg.getGenero().toString());
-    }
-
-    public static Funcionario funcionarioDTO2Funcionario(FuncionarioDTO arg) {
-        return new Funcionario(arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()), arg.getNif(), string2Genero(arg.getGenero()), arg.getNumeroFuncionario());
-    }
-
-    public static Genero string2Genero(String arg) {
-        if (arg.equalsIgnoreCase("masculino")) {
-            return Genero.MASCULINO;
-        } else if (arg.equalsIgnoreCase("feminino")) {
-            return Genero.FEMININO;
-        } else {
-            return Genero.NAOBINARIO;
+    public static FuncionarioListDto funcionarioList2FuncionarioListDto(List<Funcionario> arg) {
+        ArrayList<FuncionarioListItemDto> list = new ArrayList<>();
+        for (Funcionario c : arg) {
+            FuncionarioListItemDto item =funcionario2FuncionarioListItemDto(c);
+            list.add(item);
         }
+        FuncionarioListDto obj = new FuncionarioListDto(list);
+        return obj;
     }
 
-    public static ClienteListDTO clienteContainer2ClienteListDTO(ClienteContainer arg) {
-        ArrayList<ClienteDTO> temp = new ArrayList<>();
-        for (Cliente c : arg.getAll()) {
-            temp.add(cliente2ClienteDTO(c));
+
+    public static ProdutoListItemDto produto2ProdutoListItemDto(Produto arg){
+        ProdutoListItemDto  obj = new ProdutoListItemDto(arg.getId(),arg.getNome());
+        return obj;
+    }
+    public static ProdutoListDto produtoList2ProdutoListDto(List<Produto> arg){
+        ArrayList<ProdutoListItemDto> list = new ArrayList<>();
+        for(Produto p : arg){
+            ProdutoListItemDto item = produto2ProdutoListItemDto(p);
+            list.add(item);
         }
-        return new ClienteListDTO(temp);
+        ProdutoListDto  obj = new ProdutoListDto(list);
+        return obj;
+    }
+    public static CriticaListItemDto critica2CriticaListItemDto(Critica arg){
+        CriticaListItemDto  obj = new CriticaListItemDto(arg.getCliente(),arg.getAvaliacao());
+        return obj;
     }
 
-    public static ClienteContainer clienteListDTO2ClientesContainer(ClienteListDTO arg) {
-        ArrayList<Cliente> temp = new ArrayList<>();
-        for (ClienteDTO c : arg.getClientes()) {
-            temp.add(clienteDTO2Cliente(c));
+    public static CriticaListDto criticaList2CriticaListDto(List<Critica> arg){
+        ArrayList<CriticaListItemDto> list = new ArrayList<>();
+        for(Critica p : arg){
+            CriticaListItemDto item =critica2CriticaListItemDto (p);
+            list.add(item);
         }
-        return new ClienteContainer(temp);
+        CriticaListDto  obj = new CriticaListDto(list);
+        return obj;
     }
 
-    public static FuncionarioListDTO funcionarioContainer2FuncionarioListDTO(FuncionarioContainer arg) {
-        ArrayList<FuncionarioDTO> temp = new ArrayList<>();
-        for (Funcionario f : arg.getFuncionarios()) {
-            temp.add(funcionario2FuncionarioDTO(f));
-        }
-        return new FuncionarioListDTO(temp);
-    }
-
-    public static FuncionarioContainer funcionarioListDTO2FuncionarioContainer(FuncionarioListDTO arg) {
-        ArrayList<Funcionario> temp = new ArrayList<>();
-        for (FuncionarioDTO f : arg.getFuncionarios()) {
-            temp.add(funcionarioDTO2Funcionario(f));
-        }
-        return new FuncionarioContainer(temp);
-    }
-
-    public static ProdutoListDTO produtoContainer2ProdutoListDTO(ProdutoContainer arg) {
-        ArrayList<ProdutoDTO> temp = new ArrayList<>();
-        for (Produto p : arg.getStock()) {
-            temp.add(produto2ProdutoDTO(p));
-        }
-        return new ProdutoListDTO(temp);
-    }
-
-    public static ProdutoContainer produtoListDTO2ProdutoContainer(ProdutoListDTO arg) {
-        ArrayList<Produto> temp = new ArrayList<>();
-        for (ProdutoDTO p : arg.getProdutos()) {
-            temp.add(produtoDTO2Produto(p));
-        }
-        return new ProdutoContainer(temp);
-    }
-
-    public static CriticaListDTO criticaContainer2CriticaListDTO(CriticaContainer arg) {
-        ArrayList<CriticaDTO> temp = new ArrayList<>();
-        for (Critica c : arg.getCriticas()) {
-            temp.add(critica2CriticaDTO(c));
-        }
-        return new CriticaListDTO(temp);
-    }
-
-    public static CriticaContainer criticalistDTO2CriticaContainer(CriticaListDTO arg) {
-        ArrayList<Critica> temp = new ArrayList<>();
-        for (CriticaDTO c : arg.getCriticas()) {
-            temp.add(criticaDTO2Critica(c));
-        }
-        return new CriticaContainer(temp);
-    }
 
 }

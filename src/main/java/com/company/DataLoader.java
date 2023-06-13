@@ -9,21 +9,18 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataLoader implements ApplicationRunner {
-    Cabeleireiro cabeleireiro = null;
+public class DataLoader {
+
     @Autowired
-    public DataLoader() {
+    public static Cabeleireiro DataLoader() {
+        Cabeleireiro cabeleireiro = null;
         cabeleireiro = FilesOperation.load();
         if(cabeleireiro == null) {
-            cabeleireiro = new Cabeleireiro("Cabeleireiro - MOCK","Rua da Juventude 231",15000.00,3,4);
+            cabeleireiro = new Cabeleireiro("Cabeleireira Lola","Rua da Juventude 231",15000.00,3,4);
             MockData mock = new MockData();
             mock.generateData(cabeleireiro);
+            return cabeleireiro;
         }
-    }
-
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-       FilesOperation.save(cabeleireiro);
+        return new Cabeleireiro();
     }
 }

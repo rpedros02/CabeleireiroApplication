@@ -7,17 +7,23 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import java.util.ArrayList;
 
 @JacksonXmlRootElement(localName = "criticas")
-public class CriticaListDTO {
+public class CriticaListDto {
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "critica")
-    private ArrayList<CriticaDTO> criticas;
+    private ArrayList<CriticaListItemDto> criticas;
 
-
-    public CriticaListDTO(ArrayList<CriticaDTO> criticas) {
+    public CriticaListDto(){
+    }
+    public CriticaListDto(ArrayList<CriticaListItemDto> criticas) {
         this.criticas = criticas;
     }
 
-    public ArrayList<CriticaDTO> getCriticas() {
+
+    public ArrayList<CriticaListItemDto> getCriticas() {
         return criticas;
+    }
+
+    public void setCriticas(ArrayList<CriticaListItemDto> criticas) {
+        this.criticas = criticas;
     }
 }

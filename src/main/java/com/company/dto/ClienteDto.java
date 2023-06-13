@@ -3,35 +3,28 @@ package com.company.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-@JsonPropertyOrder({"numCliente","nome","dataNascimento","nif","genero"})
+@JsonPropertyOrder({"numeroCliente","nome","dataNascimento","nif"})
 @JacksonXmlRootElement(localName = "cliente")
-public class ClienteDTO {
-    @JacksonXmlProperty(localName = "numCliente")
-    private long numeroCliente;
+public class ClienteDto {
+    @JacksonXmlProperty(localName = "numeroCliente")
+    private int numeroCliente;
     @JacksonXmlProperty(localName = "nome")
     private String nome;
     @JacksonXmlProperty(localName = "dataNascimento")
-    private DateDTO dataNascimento;
+    private DateDto dataNascimento;
     @JacksonXmlProperty(localName = "nif")
     private int nif;
-    @JacksonXmlProperty(localName = "genero")
-    private String genero;
 
-    public ClienteDTO(long numeroCliente,String nome,DateDTO dataNascimento,int nif,String genero) {
+    public ClienteDto(int numeroCliente, String nome, DateDto dataNascimento, int nif) {
         this.numeroCliente = numeroCliente;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.nif = nif;
-        this.genero = genero;
     }
-    public ClienteDTO() {
-        this.numeroCliente = getNumeroCliente();
-        this.nome = getNome();
-        this.dataNascimento = getDataNascimento();
-        this.nif = getNif();
-        this.genero = getGenero();
+    public ClienteDto() {
+
     }
-    public long getNumeroCliente() {
+    public int getNumeroCliente() {
         return numeroCliente;
     }
 
@@ -39,7 +32,7 @@ public class ClienteDTO {
         return nome;
     }
 
-    public DateDTO getDataNascimento() {
+    public DateDto getDataNascimento() {
         return dataNascimento;
     }
 
@@ -47,7 +40,4 @@ public class ClienteDTO {
         return nif;
     }
 
-    public String getGenero() {
-        return genero;
-    }
 }

@@ -1,7 +1,7 @@
 package com.company.models;
 
-import com.company.enums.Genero;
 import com.company.exceptions.ElementoNaoExisteException;
+import com.company.exceptions.InvalidDateException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +21,13 @@ public class ClienteContainer implements Serializable {
         return new ArrayList<>(this.clientes);
     }
 
+    public int size(){
+        if(this.clientes == null){
+            return 0;
+        }
+        return this.clientes.size();
+    }
+
     public Cliente search(int id) {
         Cliente cliente;
         for (Cliente value : this.clientes) {
@@ -30,6 +37,15 @@ public class ClienteContainer implements Serializable {
             }
         }
         return null;
+    }
+    public Cliente get(int numeroCliente){
+         Cliente cliente = search(numeroCliente);
+        if(cliente != null){
+            return cliente;
+        }else{
+            String msg = "Student: " + numeroCliente+ " does not exist!!";
+            throw  new InvalidDateException(msg);
+        }
     }
 
     private long getNewNumber() {
@@ -43,26 +59,16 @@ public class ClienteContainer implements Serializable {
     }
 
     public void add(Cliente obj) {
-        this.clientes.add(new Cliente(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), getNewNumber()));
+        Cliente cliente= new Cliente(obj.getNome(),obj.getDataNascimento(),obj.getnIF(),obj.getNumeroCliente());
+        this.clientes.add(cliente);
     }
 
-    public void add(long numCliente, Cliente obj) {
-        this.clientes.add(new Cliente(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), numCliente));
-    }
-
-    public void update(int numCliente, String nome, Date dataNascimento, int nIF, String genero) {
+    public void update(int numCliente, String nome, Date dataNascimento, int nIF) {
         Cliente cliente = search(numCliente);
         if (cliente != null) {
             cliente.setNome(nome);
             cliente.setDataNascimento(dataNascimento);
             cliente.setnIF(nIF);
-            if (genero.equalsIgnoreCase("masculino")) {
-                cliente.setGenero(Genero.MASCULINO);
-            } else if (genero.equalsIgnoreCase("feminino")) {
-                cliente.setGenero(Genero.FEMININO);
-            } else {
-                cliente.setGenero(Genero.NAOBINARIO);
-            }
         } else {
             throw new ElementoNaoExisteException("Cliente " + numCliente + " não existe.");
         }

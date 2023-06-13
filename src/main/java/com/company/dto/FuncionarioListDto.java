@@ -7,16 +7,23 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import java.util.ArrayList;
 
 @JacksonXmlRootElement(localName = "funcionarios")
-public class FuncionarioListDTO {
+public class FuncionarioListDto {
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "funcionario")
-    private ArrayList<FuncionarioDTO> funcionarios;
+    private ArrayList<FuncionarioListItemDto> funcionarios;
 
-    public FuncionarioListDTO(ArrayList<FuncionarioDTO> funcionarios) {
+    public FuncionarioListDto(){
+
+    }
+    public FuncionarioListDto(ArrayList<FuncionarioListItemDto> funcionarios) {
         this.funcionarios = funcionarios;
     }
 
-    public ArrayList<FuncionarioDTO> getFuncionarios() {
+    public ArrayList<FuncionarioListItemDto> getFuncionarios() {
         return funcionarios;
+    }
+
+    public void setFuncionarios(ArrayList<FuncionarioListItemDto> funcionarios) {
+        this.funcionarios = funcionarios;
     }
 }

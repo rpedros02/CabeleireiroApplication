@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.dto.CriticaDTO;
+import com.company.dto.CriticaDto;
 import com.company.dto.ErrorDto;
 import com.company.service.CriticaService;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class CriticaController {
     }
 
     @PostMapping(value = "/critica/create", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addCritica(@RequestBody CriticaDTO arg){
+    public ResponseEntity<Object> addCritica(@RequestBody CriticaDto arg){
         try{
             CriticaService.addCritica(arg);
             return new ResponseEntity<>(HttpStatus.CREATED);

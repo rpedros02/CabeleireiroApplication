@@ -1,54 +1,39 @@
 package com.company.service;
 
-import ch.qos.logback.core.net.server.Client;
 import com.company.dto.*;
 import com.company.models.*;
 import com.company.repository.FilesOperation;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class EstatisticaService {
-    public static ServicoListDTO getServicosPorFuncionario(long id) {
+
+    public static ServicoListDto getServicosPorFuncionario(int id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         ServicosContainer container = new ServicosContainer();
-        for (Servico s : cabeleireiro.getServicos().getServicos()) {
-            if (s.getNumFuncionario() == id) {
-                container.getServicos().add(s);
+        for (Servico s : cabeleireiro.getServicos().getAll()) {
+            if (s.getNumeroFuncionario() == id) {
+                container.add(s);
             }
         }
-        return Mapper.servicoList2ServicoListDTO(container);
+        return Mapper.servicoList2ServicoListDto(container.getAll());
     }
 
 
-    public static int getNServicosPorFuncionario(long id) {
+    public static int getNServicosPorFuncionario(int id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         int count = 0;
-        for (Servico s : cabeleireiro.getServicos().getServicos()) {
-            if (s.getNumFuncionario() == id) {
+        for (Servico s : cabeleireiro.getServicos().getAll()) {
+            if (s.getNumeroFuncionario() == id) {
                 count++;
             }
         }
         return count;
     }
 
-    public static FuncionarioDTO getFuncionarioMaisServicos() {
-        Cabeleireiro cabeleireiro = FilesOperation.load();
-        int max = 0;
-        long idmax = 0;
-        for (Funcionario f : cabeleireiro.getFuncionarios().getFuncionarios()) {
-            int count = getNServicosPorFuncionario(f.getNumFuncionario());
-            if (count > max) {
-                max = count;
-                idmax = f.getNumFuncionario();
-            }
-        }
-        return Mapper.funcionario2FuncionarioDTO(cabeleireiro.getFuncionarios().search((int) idmax));
-    }
 
-    public static ClienteListDTO getNClientesMaisVelhos(int n) {
+
+    public static ClienteListDto getNClientesMaisVelhos(int n) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         ArrayList<Cliente> clientes = cabeleireiro.getClientes().getAll();
         ArrayList<Cliente> clientesMaisVelhos = new ArrayList<>();
@@ -67,12 +52,12 @@ public class EstatisticaService {
         }
         ClienteContainer result = new ClienteContainer();
         for (Cliente cliente : clientesMaisVelhos) {
-            result.add(cliente.getNumeroCliente(), cliente);
+            result.add(cliente);
         }
-        return Mapper.clienteContainer2ClienteListDTO(result);
+        return Mapper.clienteList2ClienteListDto(result.getAll());
     }
 
-    public static ClienteListDTO getNClientesMaisNovos(int n) {
+    public static ClienteListDto getNClientesMaisNovos(int n) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         ArrayList<Cliente> clientes = cabeleireiro.getClientes().getAll();
         ArrayList<Cliente> clientesMaisNovos = new ArrayList<>();
@@ -91,12 +76,12 @@ public class EstatisticaService {
         }
         ClienteContainer result = new ClienteContainer();
         for (Cliente cliente : clientesMaisNovos) {
-            result.add(cliente.getNumeroCliente(), cliente);
+            result.add(cliente);
         }
-        return Mapper.clienteContainer2ClienteListDTO(result);
+        return Mapper.clienteList2ClienteListDto(result.getAll());
     }
 
-    public static FuncionarioListDTO getNFuncionariosMaisVelhos(int n) {
+    public static FuncionarioListDto getNFuncionariosMaisVelhos(int n) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         ArrayList<Funcionario> funcionarios = cabeleireiro.getFuncionarios().getFuncionarios();
         ArrayList<Funcionario> funcionariosMaisVelhos = new ArrayList<>();
@@ -114,12 +99,12 @@ public class EstatisticaService {
         }
         FuncionarioContainer result = new FuncionarioContainer();
         for (Funcionario funcionario : funcionariosMaisVelhos) {
-            result.add(funcionario.getNumFuncionario(), funcionario);
+            result.add(funcionario);
         }
-        return Mapper.funcionarioContainer2FuncionarioListDTO(result);
+        return Mapper.funcionarioList2FuncionarioListDto(result.getAll());
     }
 
-    public static FuncionarioListDTO getNFuncionariosMaisNovos(int n) {
+    public static FuncionarioListDto getNFuncionariosMaisNovos(int n) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         ArrayList<Funcionario> funcionarios = cabeleireiro.getFuncionarios().getFuncionarios();
         ArrayList<Funcionario> funcionariosMaisVelhos = new ArrayList<>();
@@ -138,26 +123,26 @@ public class EstatisticaService {
         }
         FuncionarioContainer result = new FuncionarioContainer();
         for (Funcionario funcionario : funcionariosMaisVelhos) {
-            result.add(funcionario.getNumFuncionario(), funcionario);
+            result.add(funcionario);
         }
-        return Mapper.funcionarioContainer2FuncionarioListDTO(result);
+        return Mapper.funcionarioList2FuncionarioListDto(result.getAll());
     }
 
-    public static int getNServicosPorCliente(long id) {
+    public static int getNServicosPorCliente(int id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         int count = 0;
-        for (Servico s : cabeleireiro.getServicos().getServicos()) {
-            if (s.getNumCliente() == id) {
+        for (Servico s : cabeleireiro.getServicos().getAll()) {
+            if (s.getNumeroCliente() == id) {
                 count++;
             }
         }
         return count;
     }
 
-    public static ClienteDTO getClienteMaisServicos() {
+    public static ClienteDto getClienteMaisServicos() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         int max = 0;
-        long idmax = 0;
+        int idmax = 0;
         for (Cliente c : cabeleireiro.getClientes().getAll()) {
             int count = getNServicosPorCliente(c.getNumeroCliente());
             if (count > max) {
@@ -165,38 +150,54 @@ public class EstatisticaService {
                 idmax = c.getNumeroCliente();
             }
         }
-        return Mapper.cliente2ClienteDTO(cabeleireiro.getClientes().search((int) idmax));
+        return Mapper.cliente2ClienteDTO(cabeleireiro.getClientes().search(idmax));
     }
-
+    public static FuncionarioDto getFuncionarioMaisServicos() {
+        Cabeleireiro cabeleireiro = FilesOperation.load();
+        int max = 0;
+        int idmax = 0;
+        for (Funcionario f : cabeleireiro.getFuncionarios().getAll()) {
+            int count = getNServicosPorFuncionario(f.getNumeroFuncionario());
+            if (count > max) {
+                max = count;
+                idmax = f.getNumeroFuncionario();
+            }
+        }
+        return Mapper.funcionario2FuncionarioDTO(cabeleireiro.getFuncionarios().search(idmax));
+    }
     public static int nCriticasPorAno(int ano) {
         int count = 0;
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
+        for (Critica c : cabeleireiro.getCriticas().getAll()) {
             if (c.getDataCritica().getYear() == ano) count++;
         }
         return count;
     }
 
-    public static int getAnoMaisCriticas() {
+    public static String getAnoMaisCriticas() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         int maxDate = 0;
         int max = 0;
-        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
+        String maxi="";
+        for (Critica c : cabeleireiro.getCriticas().getAll()) {
             if (nCriticasPorAno(c.getDataCritica().getYear()) > max) {
                 maxDate = c.getDataCritica().getYear();
                 max = nCriticasPorAno(c.getDataCritica().getYear());
+              maxi=String.valueOf(maxDate);
             }
         }
-        return maxDate;
+        return maxi;
     }
 
-    public static double getMediaAvaliacoes() {
+    public static String getMediaAvaliacoes() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
         double soma = 0;
-        for (Critica c : cabeleireiro.getCriticas().getCriticas()) {
+        String valor="";
+        for (Critica c : cabeleireiro.getCriticas().getAll()) {
             soma += c.getAvaliacao();
         }
-        return round(soma / cabeleireiro.getCriticas().getCriticas().size(), 2);
+        valor=String.valueOf(round(soma / cabeleireiro.getCriticas().getAll().size(), 2));
+        return valor;
     }
 
     public static double round(double value, int places) {

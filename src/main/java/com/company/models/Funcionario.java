@@ -1,67 +1,37 @@
 package com.company.models;
 
-import com.company.enums.Genero;
+
 import com.company.exceptions.NumeroInvalidoException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-/**
- * Classe Funcionário que herda os atributos da classe Pessoa e identifica o Funcionário através do Número de Funcionario.
- */
+
 public class Funcionario extends Pessoa implements Serializable {
-    private long numFuncionario;
+    private int numeroFuncionario;
 
-    /**
-     * Construtor do Funcionário que recebe todos os parâmetros necessários na criação de um funcionário.
-     *
-     * @param nome           → Nome do Funcionário - String
-     * @param dataNascimento → Data de Nascimento do Funcionário - {@link Date}
-     * @param nIF            → NIF do Funcionário - Int
-     * @param genero         → Género do Funcionário - {@link Genero}
-     * @param numFuncionario → Número de Funcionário - Long
-     */
-    public Funcionario(String nome, Date dataNascimento, int nIF, Genero genero, long numFuncionario) {
-        super(nome, dataNascimento, nIF, genero);
-        if (validNumber(numFuncionario)) {
-            this.numFuncionario = numFuncionario;
+    public Funcionario(String nome, Date dataNascimento, int nIF, int numeroFuncionario) {
+        super(nome, dataNascimento, nIF);
+        if (validNumber(numeroFuncionario)) {
+            this.numeroFuncionario = numeroFuncionario;
         } else {
-            throw new NumeroInvalidoException("Número : " + numFuncionario + " Inválido.");
+            throw new NumeroInvalidoException("Número : " + numeroFuncionario + " Inválido.");
         }
     }
 
-    public Funcionario(long numFuncionario, String nome) {
+    public Funcionario(int numeroFuncionario, String nome) {
         super(nome);
-        this.numFuncionario = numFuncionario;
+        this.numeroFuncionario = numeroFuncionario;
     }
 
-
-    /**
-     * Retorna o número do Funcionário
-     *
-     * @return Número do Funcionário
-     */
-    public long getNumFuncionario() {
-        return numFuncionario;
+    public int getNumeroFuncionario() {
+        return numeroFuncionario;
     }
 
-    /**
-     * Define o número do Funcionário
-     *
-     * @param numFuncionario → Número do Funcionário
-     */
-    public void setNumFuncionario(long numFuncionario) {
-        this.numFuncionario = numFuncionario;
+    public void setNumFuncionario(int numeroFuncionario) {
+        this.numeroFuncionario = numeroFuncionario;
     }
 
-    /**
-     * Verifica se o Número do Funcionário é válido.
-     *
-     * @param number Número a verificar - Long
-     * @return true se a condição se verificar, caso contrário, false
-     */
-    private boolean validNumber(long number) {
-        return number >= 0 && number <= 9999;
+    private boolean validNumber(int numeroFuncionario) {
+        return numeroFuncionario>0&&numeroFuncionario<=9999;
     }
-
 }

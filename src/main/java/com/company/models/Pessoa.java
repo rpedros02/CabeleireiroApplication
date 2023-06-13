@@ -1,6 +1,6 @@
 package com.company.models;
 
-import com.company.enums.Genero;
+import com.company.exceptions.InvalidDateException;
 
 import java.io.Serializable;
 
@@ -12,38 +12,18 @@ public class Pessoa implements Serializable {
     private String nome;
     private Date dataNascimento;
     private int nIF;
-    private Genero genero;
+    private boolean isNameValid(String nome){
+        return nome.length() >= 3;
+    }
     protected Pessoa() {
     }
-
-    /**
-     * Construtor da Pessoa
-     *
-     * @param nome           → Nome da Pessoa - String
-     * @param dataNascimento → Data de Nascimento da Pessoa - Date
-     * @param nIF            → NIF da Pessoa - int
-     * @param genero         → Género da Pessoa - ENUM Género
-     */
-    protected Pessoa(String nome, Date dataNascimento, int nIF, Genero genero) {
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.nIF = nIF;
-        this.genero = genero;
-    }
     public Pessoa(String nome){
-        this.nome = nome;
+        setNome(nome);
     }
-    public Pessoa(String nome, Date dataNascimento, int nIF, String genero) {
+    public Pessoa(String nome, Date dataNascimento, int nIF) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.nIF = nIF;
-        if(genero.equalsIgnoreCase("masculino")){
-            this.genero = Genero.MASCULINO;
-        } else if (genero.equalsIgnoreCase("feminino")) {
-            this.genero = Genero.FEMININO;
-        }else{
-            this.genero = Genero.NAOBINARIO;
-        }
     }
 
     /**
@@ -60,8 +40,14 @@ public class Pessoa implements Serializable {
      *
      * @param nome Nome da Pessoa
      */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome){
+        if(isNameValid(nome)){
+            this.nome = nome;
+        }else{
+
+            String msg = "Person: " + nome;
+            throw new InvalidDateException(msg);
+        }
     }
 
     /**
@@ -100,21 +86,4 @@ public class Pessoa implements Serializable {
         this.nIF = nIF;
     }
 
-    /**
-     * Retorna o Género da Pessoa
-     *
-     * @return Genero da Pessoa
-     */
-    public Genero getGenero() {
-        return genero;
-    }
-
-    /**
-     * Define o Género da Pessoa
-     *
-     * @param genero Género da Pessoa
-     */
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
 }

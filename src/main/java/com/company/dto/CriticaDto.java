@@ -4,32 +4,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-@JsonPropertyOrder({"numeroCliente", "avaliacao", "texto", "dataCritica"})
+@JsonPropertyOrder({"numeroCliente","avaliacao", "texto", "dataCritica"})
 @JacksonXmlRootElement(localName = "critica")
-public class CriticaDTO {
+public class CriticaDto {
     @JacksonXmlProperty(localName = "numeroCliente")
-    private long numeroCliente;
+    private int numeroCliente;
     @JacksonXmlProperty(localName = "avaliacao")
     private int avaliacao;
     @JacksonXmlProperty(localName = "texto")
     private String texto;
     @JacksonXmlProperty(localName = "dataCritica")
-    DateDTO dataCritica;
+    DateDto dataCritica;
 
 
-    public CriticaDTO(long numeroCliente, int avaliacao, String texto, DateDTO dataCritica) {
+    public CriticaDto(int numeroCliente, int avaliacao, String texto, DateDto dataCritica) {
         this.numeroCliente = numeroCliente;
         this.avaliacao = avaliacao;
         this.texto = texto;
         this.dataCritica = dataCritica;
     }
 
-    public CriticaDTO() {
-        this.numeroCliente = getNumeroCliente();
-        this.avaliacao = getAvaliacao();
-        this.texto = getTexto();
-        this.dataCritica = getDataCritica();
-    }
+    public CriticaDto() {
+      }
 
     public int getAvaliacao() {
         return avaliacao;
@@ -39,11 +35,11 @@ public class CriticaDTO {
         return texto;
     }
 
-    public DateDTO getDataCritica() {
+    public DateDto getDataCritica() {
         return dataCritica;
     }
 
-    public long getNumeroCliente() {
+    public int getNumeroCliente() {
         return numeroCliente;
     }
 }

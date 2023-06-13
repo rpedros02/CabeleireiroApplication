@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JsonPropertyOrder({"day", "month", "year"})
 @JacksonXmlRootElement(localName = "date")
-public class DateDTO {
+public class DateDto {
     @JacksonXmlProperty(localName = "day")
     private int day;
     @JacksonXmlProperty(localName = "month")
@@ -14,10 +14,10 @@ public class DateDTO {
     @JacksonXmlProperty(localName = "year")
     private int year;
 
-    public DateDTO() {
+    public DateDto() {
     }
 
-    public DateDTO(int day, int month, int year) {
+    public DateDto(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;

@@ -1,10 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.ErrorDto;
-import com.company.dto.FuncionarioDTO;
-import com.company.dto.ProdutoDTO;
-import com.company.dto.ProdutoListDTO;
-import com.company.service.FuncionarioService;
+import com.company.dto.ProdutoDto;
 import com.company.service.ProdutoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +30,7 @@ public class ProdutoController {
     }
 
     @PostMapping(value = "/produto/create", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addProduto(@RequestBody ProdutoDTO arg){
+    public ResponseEntity<Object> addProduto(@RequestBody ProdutoDto arg){
         try{
             ProdutoService.addProduto(arg);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -42,7 +39,7 @@ public class ProdutoController {
         }
     }
     @PutMapping(value = "/produto/{number}", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updateProduto(@PathVariable("number") int number, @RequestBody ProdutoDTO arg) {
+    public ResponseEntity<Object> updateProduto(@PathVariable("number") int number, @RequestBody ProdutoDto arg) {
         try {
             ProdutoService.updateProduto(number,arg);
             return new ResponseEntity<>(HttpStatus.OK);

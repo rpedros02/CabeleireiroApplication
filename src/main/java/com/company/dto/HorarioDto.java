@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JsonPropertyOrder({"horaAbertura", "minutoAbertura", "horaFecho", "minutoFecho"})
 @JacksonXmlRootElement(localName = "horario")
-public class HorarioDTO {
+public class HorarioDto {
     @JacksonXmlProperty(localName = "horaAbertura")
     private int horaAbertura;
     @JacksonXmlProperty(localName = "minutoAbertura")
@@ -17,13 +17,13 @@ public class HorarioDTO {
     private int minutoFecho;
 
 
-    public HorarioDTO(int horaAbertura, int minutoAbertura, int horaFecho, int minutoFecho) {
+    public HorarioDto(int horaAbertura, int minutoAbertura, int horaFecho, int minutoFecho) {
         this.horaAbertura = horaAbertura;
         this.minutoAbertura = minutoAbertura;
         this.horaFecho = horaFecho;
         this.minutoFecho = minutoFecho;
     }
-    public HorarioDTO() {
+    public HorarioDto() {
         this.horaAbertura = getHoraAbertura();
         this.minutoAbertura = getMinutoAbertura();
         this.horaFecho = getHoraFecho();

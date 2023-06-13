@@ -1,11 +1,12 @@
 package com.company.models;
 
-import com.company.dto.FuncionarioDTO;
-import com.company.enums.Genero;
+
 import com.company.exceptions.ElementoNaoExisteException;
+import com.company.exceptions.InvalidDateException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FuncionarioContainer implements Serializable {
     private ArrayList<Funcionario> funcionarios;
@@ -26,19 +27,30 @@ public class FuncionarioContainer implements Serializable {
         this.funcionarios = funcionarios;
     }
 
-    public void addFuncionario(Funcionario arg) {
-        funcionarios.add(arg);
+    public List<Funcionario> getAll(){
+        List<Funcionario> newlist = new ArrayList();
+        newlist.addAll(this.funcionarios);
+        return newlist;
+    }
+    public Funcionario get(int number){
+        Funcionario funcionario = search(number);
+        if(funcionario != null){
+            return funcionario;
+        }else{
+            String msg = "Funcionario: " + number+ "nao existe!!";
+            throw  new InvalidDateException(msg);
+        }
     }
 
     public void removeFuncionario(int id) {
-        funcionarios.removeIf(funcionario -> funcionario.getNumFuncionario() == id);
+        funcionarios.removeIf(funcionario -> funcionario.getNumeroFuncionario() == id);
     }
 
     public Funcionario search(int id) {
         Funcionario funcionario;
         for (Funcionario value : this.funcionarios) {
             funcionario = value;
-            if (funcionario.getNumFuncionario() == id) {
+            if (funcionario.getNumeroFuncionario() == id) {
                 return funcionario;
             }
         }
@@ -46,31 +58,28 @@ public class FuncionarioContainer implements Serializable {
     }
 
     public void add(Funcionario obj) {
-        this.funcionarios.add(new Funcionario(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), getNewNumber()));
-    }
-    public void add(long id,Funcionario obj) {
-        this.funcionarios.add(new Funcionario(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), obj.getGenero(), id));
+        this.funcionarios.add(new Funcionario(obj.getNome(), obj.getDataNascimento(), obj.getnIF(), getNewNumber()));
     }
 
-    private long getNewNumber() {
-        long num = 0;
+
+    private int getNewNumber() {
+        int num = 0;
         for (int i = funcionarios.size() - 1; i >= 0; i--) {
-            if (funcionarios.get(i).getNumFuncionario() > num) {
-                num = funcionarios.get(i).getNumFuncionario();
+            if (funcionarios.get(i).getNumeroFuncionario() > num) {
+                num = funcionarios.get(i).getNumeroFuncionario();
             }
         }
         return (num + 1);
     }
 
-    public void update(int numFuncionario, Funcionario arg) {
-        Funcionario funcionario = search(numFuncionario);
+    public void update(int numeroFuncionario, Funcionario arg) {
+        Funcionario funcionario = search(numeroFuncionario);
         if (funcionario != null) {
             funcionario.setNome(arg.getNome());
             funcionario.setDataNascimento(arg.getDataNascimento());
             funcionario.setnIF(arg.getnIF());
-            funcionario.setGenero(arg.getGenero());
         } else {
-            throw new ElementoNaoExisteException("Cliente " + numFuncionario + " não existe.");
+            throw new ElementoNaoExisteException("Cliente " + numeroFuncionario + " não existe.");
         }
     }
 

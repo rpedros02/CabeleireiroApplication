@@ -1,10 +1,15 @@
 package com.company.models;
 
 import com.company.exceptions.ElementoNaoExisteException;
+import com.company.exceptions.InvalidDateException;
 import com.company.service.ProdutoService;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.springframework.core.annotation.MergedAnnotations.search;
 
 public class ProdutoContainer implements Serializable {
     private ArrayList<Produto> stock;
@@ -31,34 +36,39 @@ public class ProdutoContainer implements Serializable {
         stock.add(new Produto(getNewNumber(), produto.getNome(), produto.getPreco()));
     }
 
-    public ArrayList<Produto> getStock() {
-        return stock;
-    }
-
     public void setStock(ArrayList<Produto> stock) {
         this.stock = stock;
     }
 
-    public Produto getProdutoByID(int id) {
-        for (Produto produto : stock) {
-            if (produto.getId() == id) {
-                return produto;
-            }
-        }
-        throw new ElementoNaoExisteException("Protudo " + id + " não existe");
-    }
 
-    public Produto getProdutoByName(String name) {
-        for (Produto produto : stock) {
-            if (produto.getNome().equals(name)) {
+    public List<Produto> getAll(){
+        List<Produto> newlist = new ArrayList();
+        newlist.addAll(this.stock);
+        return newlist;
+    }
+    public Produto get(int number){
+        Produto produto=search(number);
+        if(produto != null){
+            return produto;
+        }else{
+            String msg = "Produto: " + number+ "nao existe!!";
+            throw  new InvalidDateException(msg);
+        }
+    }
+    private Produto search(int number) {
+        Produto  produto;
+        Iterator<Produto> it = this.stock.iterator();
+        while(it.hasNext()){
+            produto = it.next();
+            if(produto.isEqualTo(number)){
                 return produto;
             }
         }
-        throw new ElementoNaoExisteException("Protudo " + name + " não existe");
+        return null;
     }
 
     public void update(int id, Produto arg) {
-        Produto produto = getProdutoByID(id);
+        Produto produto = search(id);
         if (produto != null) {
             produto.setNome(arg.getNome());
             produto.setPreco(arg.getPreco());
@@ -68,7 +78,7 @@ public class ProdutoContainer implements Serializable {
     }
 
     public void remove(int number) {
-        Produto produto = getProdutoByID(number);
+        Produto produto = search(number);
         if (produto != null) {
             this.stock.remove(produto);
         } else {

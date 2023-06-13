@@ -1,34 +1,42 @@
 package com.company.service;
 
-import com.company.dto.ClienteDTO;
-import com.company.dto.ClienteListDTO;
+import com.company.dto.ClienteDto;
+import com.company.dto.ClienteListDto;
 import com.company.dto.Mapper;
 import com.company.models.Cabeleireiro;
-import com.company.models.ClienteContainer;
+import com.company.models.Cliente;
+import com.company.models.Date;
 import com.company.repository.FilesOperation;
+
+import java.util.List;
 
 
 public class ClienteService {
-    public static ClienteListDTO getClientes() {
+    public static ClienteListDto getClientes() {
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        ClienteContainer list = cabeleireiro.getClientes();
-        return Mapper.clienteContainer2ClienteListDTO(list);
+        List<Cliente> list = cabeleireiro.getClientes().getAll();
+        ClienteListDto result= Mapper.clienteList2ClienteListDto(list);
+        return result;
     }
 
-    public static ClienteDTO getClienteInfo(int id) {
+    public static ClienteDto getClienteInfo(int id) {
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        return Mapper.cliente2ClienteDTO(cabeleireiro.getClientes().search(id));
+        Cliente item = cabeleireiro.getClientes().get(id);
+        ClienteDto result = Mapper.cliente2ClienteDTO(item);
+        return result;
     }
 
-    public static void addCliente(ClienteDTO arg){
+    public static void addCliente(ClienteDto arg){
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        cabeleireiro.getClientes().add(Mapper.clienteDTO2Cliente(arg));
+        Cliente item = Mapper.clienteDTO2Cliente(arg);
+        cabeleireiro.getClientes().add(item);
         FilesOperation.save(cabeleireiro);
     }
 
-    public static void updateCliente(int numeroCliente,ClienteDTO arg){
+    public static void updateCliente(int numeroCliente, ClienteDto arg){
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        cabeleireiro.getClientes().update(numeroCliente, arg.getNome(), Mapper.dateDTO2Date(arg.getDataNascimento()),arg.getNif(),arg.getGenero());
+        Date date= Mapper.dateDTO2Date(arg.getDataNascimento());
+        cabeleireiro.getClientes().update(numeroCliente, arg.getNome(), date,arg.getNif());
         FilesOperation.save(cabeleireiro);
     }
 

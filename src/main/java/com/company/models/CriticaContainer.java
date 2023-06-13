@@ -1,7 +1,10 @@
 package com.company.models;
 
+import com.company.exceptions.InvalidDateException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CriticaContainer implements Serializable{
     private ArrayList<Critica> criticas;
@@ -13,8 +16,19 @@ public class CriticaContainer implements Serializable{
         this.criticas = criticas;
     }
 
-    public ArrayList<Critica> getCriticas() {
-        return criticas;
+    public List<Critica> getAll(){
+        List<Critica> newlist = new ArrayList();
+        newlist.addAll(this.criticas);
+        return newlist;
+    }
+    public Critica get(int id){
+        Critica critica = search(id);
+        if(critica != null){
+            return critica;
+        }else{
+            String msg = "Critica: " + id+ " nao existe!!";
+            throw  new InvalidDateException(msg);
+        }
     }
 
     public void setCriticas(ArrayList<Critica> criticas) {

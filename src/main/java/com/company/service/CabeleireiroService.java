@@ -1,16 +1,15 @@
 package com.company.service;
 
-import com.company.dto.CabeleireiroDTO;
+import com.company.dto.CabeleireiroDto;
 import com.company.dto.Mapper;
 import com.company.models.Cabeleireiro;
 import com.company.repository.FilesOperation;
 
 public class CabeleireiroService {
-    public static CabeleireiroDTO getCabeleireiroInfo(){
+    public static CabeleireiroDto getCabeleireiroInfo(){
         Cabeleireiro cabeleireiro = FilesOperation.load();
-        return Mapper.cabeleireiro2CabeleireiroDTO(cabeleireiro);
+        CabeleireiroDto cabeleireiroDTO = Mapper.cabeleireiro2CabeleireiroDTO(cabeleireiro.getNome());
+        return cabeleireiroDTO;
     }
-    public static void updateCabeleireiro(CabeleireiroDTO arg){
-        FilesOperation.save(Cabeleireiro.updateCabeleireiro(Mapper.cabeleireiroDTO2Cabeleireiro(arg)));
-    }
+
 }

@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.ErrorDto;
-import com.company.dto.FuncionarioDTO;
+import com.company.dto.FuncionarioDto;
 import com.company.service.FuncionarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +30,7 @@ public class FuncionarioController {
     }
 
     @PostMapping(value = "/funcionarios/create", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addFuncionario(@RequestBody FuncionarioDTO arg){
+    public ResponseEntity<Object> addFuncionario(@RequestBody FuncionarioDto arg){
         try{
             FuncionarioService.addFuncionario(arg);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -39,7 +39,7 @@ public class FuncionarioController {
         }
     }
     @PutMapping(value = "/funcionarios/{number}", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updateFuncionarios(@PathVariable("number") int number, @RequestBody FuncionarioDTO arg) {
+    public ResponseEntity<Object> updateFuncionarios(@PathVariable("number") int number, @RequestBody FuncionarioDto arg) {
         try {
             FuncionarioService.updateFuncionario(number,arg);
             return new ResponseEntity<>(HttpStatus.OK);

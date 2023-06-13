@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JsonPropertyOrder({"id","nome","preco"})
 @JacksonXmlRootElement(localName = "produto")
-public class ProdutoDTO {
+public class ProdutoDto {
     @JacksonXmlProperty(localName = "id")
     private int id;
     @JacksonXmlProperty(localName = "nome")
@@ -14,17 +14,14 @@ public class ProdutoDTO {
     @JacksonXmlProperty(localName = "preco")
     private double preco;
 
-    public ProdutoDTO(int id, String nome, double preco) {
+    public ProdutoDto(int id, String nome, double preco) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
     }
 
-    public ProdutoDTO(){
-        this.id = getId();
-        this.nome = getNome();
-        this.preco = getPreco();
-    }
+    public ProdutoDto(){
+        }
 
     public int getId() {
         return id;

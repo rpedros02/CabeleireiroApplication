@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.dto.ClienteDTO;
+import com.company.dto.ClienteDto;
 import com.company.dto.ErrorDto;
 import com.company.service.ClienteService;
 import org.springframework.http.HttpStatus;
@@ -29,8 +29,8 @@ public class ClienteController {
         }
     }
 
-    @PostMapping(value = "/clientes/create", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addCliente(@RequestBody ClienteDTO arg){
+    @PostMapping(value = "/clientes", consumes = MediaType.APPLICATION_XML_VALUE ,produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Object> addCliente(@RequestBody ClienteDto arg){
         try{
             ClienteService.addCliente(arg);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -39,7 +39,7 @@ public class ClienteController {
         }
     }
     @PutMapping(value = "/clientes/{number}", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updateCliente(@PathVariable("number") int number, @RequestBody ClienteDTO arg) {
+    public ResponseEntity<Object> updateCliente(@PathVariable("number") int number, @RequestBody ClienteDto arg) {
         try {
             ClienteService.updateCliente(number, arg);
             return new ResponseEntity<>(HttpStatus.OK);
